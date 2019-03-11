@@ -1,0 +1,29 @@
+{{> header}}
+
+{{#each commitGroups}}
+{{#if title === "break"}}
+#### 💥 Breaking
+{{else if title === "release"}}
+#### 🎉 Release
+{{else if title === "new" || title === "update" || title === "feature"}}
+#### 🚀 Updates
+{{else if title === "fix"}}
+#### 🐞 Fixes
+{{else if title === "docs"}}
+#### 📘 Documentation
+{{else if title === "style"}}
+#### 🎨 Styles
+{{else if title === "security"}}
+#### 🔑 Security
+{{else if title === "revert"}}
+#### ⚙️ Reverts
+{{else}}
+#### 🛠 Internals
+{{/if}}
+
+{{#each commits}}
+{{> commit root=@root}}
+{{/each}}
+{{/each}}
+
+{{> footer}}
