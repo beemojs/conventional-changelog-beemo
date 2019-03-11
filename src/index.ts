@@ -8,7 +8,7 @@ import parserOpts from './parserOpts';
 import recommendedBumpOpts from './recommendedBumpOpts';
 import writerOpts from './writerOpts';
 
-export = Promise.resolve({
+export default Promise.resolve({
   conventionalChangelog,
   parserOpts,
   recommendedBumpOpts,

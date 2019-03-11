@@ -13,7 +13,7 @@ const options: BumpOptions = {
       if (commit.type === 'break' || commit.type === 'release') {
         breakings += 1;
         level = 0;
-      } else if (commit.type === 'feat') {
+      } else if (commit.type === 'new' || commit.type === 'update' || commit.type === 'feature') {
         features += 1;
         if (level === 2) {
           level = 1;

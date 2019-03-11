@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`conventional-changelog-beemo handles multiple notes 1`] = `
+"# 0.0.0 - 2019-02-26
+
+Button is more buttony
+
+Made a lot of changes
+
+#### 🎉 Release
+
+- Initial release ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 🐞 Fixes
+
+- **[button]** Made button changes ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+`;
+
+exports[`conventional-changelog-beemo only replaces with link to user if it is an username 1`] = `
+"### 0.0.0 - 2019-02-26
+
+#### 🐞 Fixes
+
+- use npm@5 ([@username](https://github.com/username)) ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 🛠 Internals
+
+- **[deps]** bump @dummy/package from 7.1.2 to 8.0.0 ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+`;
+
+exports[`conventional-changelog-beemo replaces #[0-9]+ with issue URL 1`] = `
+"## 0.0.0 - 2019-02-26
+
+#### 🚀 Updates
+
+- **[awesome]** fix #88 ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d)), closes [#88](https://github.com/beemojs/conventional-changelog-beemo/issues/88)"
+`;
+
+exports[`conventional-changelog-beemo replaces @username with GitHub user URL 1`] = `
+"## 0.0.0 - 2019-02-26
+
+#### 🚀 Updates
+
+- **[awesome]** issue brought up by [@bcoe](https://github.com/bcoe)! on Friday ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+`;
+
+exports[`conventional-changelog-beemo supports non public GitHub repository locations 1`] = `"### 0.0.0 - 2019-03-11"`;
+
+exports[`conventional-changelog-beemo uses h1 for major versions 1`] = `
+"# 0.0.0 - 2019-02-26
+
+#### 💥 Breaking
+
+- new shit ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 🎉 Release
+
+- new stuff ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 🐞 Fixes
+
+- just a patch ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+`;
+
+exports[`conventional-changelog-beemo uses h2 for minor versions 1`] = `
+"## 0.0.0 - 2019-02-26
+
+#### 🚀 Updates
+
+- new shit ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- new stuff ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- **[modal]** better modals ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 🐞 Fixes
+
+- just a patch ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+`;
+
+exports[`conventional-changelog-beemo uses h3 for patch versions 1`] = `
+"### 0.0.0 - 2019-02-26
+
+#### 📘 Docs
+
+- add a manual ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 🐞 Fixes
+
+- just a patch ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+`;
+
+exports[`conventional-changelog-beemo works if there is a semver tag 1`] = `
+"## 0.0.0 - 2019-02-26
+
+#### 🚀 Updates
+
+- some more features ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+`;
+
+exports[`conventional-changelog-beemo works if there is no semver tag 1`] = `
+"## 0.0.0 - 2019-02-26
+
+New build system.
+
+#### 🚀 Updates
+
+- amazing new module ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 🐞 Fixes
+
+- **[compile]** avoid a bug ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 🛠 Internals
+
+- first build setup ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- **[travis]** add TravisCI pipeline ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+`;
+
+exports[`conventional-changelog-beemo works with unknown host 1`] = `
+"### 0.0.0 - 2019-02-26
+
+#### 📘 Docs
+
+- add manual ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+`;

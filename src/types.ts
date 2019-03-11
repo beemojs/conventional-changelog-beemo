@@ -15,6 +15,35 @@ export interface Reference {
   source: string;
 }
 
+export type CommitType =
+  | 'break'
+  | 'release'
+  | 'new'
+  | 'update'
+  | 'feature'
+  | 'fix'
+  | 'docs'
+  | 'style'
+  | 'security'
+  | 'revert'
+  | 'ci'
+  | 'build'
+  | 'test'
+  | 'internal'
+  | 'misc';
+
+export type CommitGroupLabel =
+  | 'Breaking'
+  | 'Release'
+  | 'Updates'
+  | 'Fixes'
+  | 'Docs'
+  | 'Styles'
+  | 'Security'
+  | 'Reverts'
+  | 'Internals'
+  | 'Misc';
+
 export interface Commit {
   body: string | null;
   footer: string | null;
@@ -28,12 +57,12 @@ export interface Commit {
   emoji: string;
   hash: string;
   hashLink: string;
-  label: string;
+  label: CommitGroupLabel;
   message: string;
   pr: string;
   scope: string;
   source: string;
-  type: string;
+  type: CommitType;
 }
 
 export interface Context {
@@ -52,7 +81,8 @@ export interface Context {
   title: string;
   version: string;
   // Beemo
-  headerLevel: '#' | '##' | '###';
+  headerLevel?: '#' | '##' | '###';
+  groupEmojis?: { [K in CommitGroupLabel]: string };
 }
 
 export type Pattern = string | RegExp | null;
@@ -77,7 +107,7 @@ export interface ParserOptions {
 
 export interface WriterOptions {
   commitGroupsSort: Sorter<{
-    title: string;
+    title: CommitGroupLabel;
     commits: Commit[];
   }>;
   commitPartial: string;

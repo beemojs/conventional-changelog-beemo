@@ -1,0 +1,185 @@
+import stream from 'stream';
+import conventionalChangelogCore from 'conventional-changelog-core';
+import gitDummyCommit from 'git-dummy-commit';
+import shell from 'shelljs';
+import preset from '../src';
+
+describe('conventional-changelog-beemo', () => {
+  function captureStreamOutput(stream: stream.Readable, done: jest.DoneCallback) {
+    let data = '';
+
+    stream
+      .on('error', (error: Error) => {
+        done.fail(error);
+      })
+      .on('data', (chunk: string) => {
+        data += String(chunk);
+      })
+      .on('end', () => {
+        expect(data.trim()).toMatchSnapshot();
+        done();
+      });
+  }
+
+  beforeEach(() => {
+    (shell.config as any).resetForTesting();
+    shell.cd(__dirname);
+    shell.mkdir('tmp');
+    shell.cd('tmp');
+    shell.mkdir('git-templates');
+    shell.exec('git init --template=./git-templates');
+  });
+
+  afterEach(() => {
+    shell.cd(__dirname);
+    shell.rm('-rf', 'tmp');
+  });
+
+  it('works if there is no semver tag', done => {
+    gitDummyCommit(['build: first build setup', 'Note: New build system.']);
+    gitDummyCommit(['ci(travis): add TravisCI pipeline', 'Continuously integrated.']);
+    gitDummyCommit(['new: amazing new module', 'Not backward compatible.']);
+    gitDummyCommit(['fix(compile): avoid a bug', 'The Change is huge.']);
+    gitDummyCommit(['update(ngOptions): make it faster', 'closes #1, #2']);
+    gitDummyCommit('revert(ngOptions): bad commit');
+    gitDummyCommit('fix(*): oops');
+
+    captureStreamOutput(
+      conventionalChangelogCore({
+        config: preset,
+      }),
+      done,
+    );
+  });
+
+  it('works if there is a semver tag', function(done) {
+    shell.exec('git tag v1.0.0');
+    gitDummyCommit('update: some more features');
+
+    captureStreamOutput(
+      conventionalChangelogCore({
+        config: preset,
+        outputUnreleased: true,
+      }),
+      done,
+    );
+  });
+
+  it('works with unknown host', function(done) {
+    gitDummyCommit('docs: add manual');
+
+    captureStreamOutput(
+      conventionalChangelogCore({
+        config: preset,
+        pkg: {
+          repository: 'unknown',
+          version: 'v2.0.0',
+        },
+      }),
+      done,
+    );
+  });
+
+  it('uses h1 for major versions', function(done) {
+    gitDummyCommit('break: new shit');
+    gitDummyCommit('release: new stuff');
+    gitDummyCommit('fix: just a patch');
+
+    captureStreamOutput(
+      conventionalChangelogCore({
+        config: preset,
+      }),
+      done,
+    );
+  });
+
+  it('uses h2 for minor versions', function(done) {
+    gitDummyCommit('new: new shit');
+    gitDummyCommit('update: new stuff');
+    gitDummyCommit('feature(modal): better modals');
+    gitDummyCommit('fix: just a patch');
+
+    captureStreamOutput(
+      conventionalChangelogCore({
+        config: preset,
+      }),
+      done,
+    );
+  });
+
+  it('uses h3 for patch versions', function(done) {
+    gitDummyCommit('docs: add a manual');
+    gitDummyCommit('fix: just a patch');
+
+    captureStreamOutput(
+      conventionalChangelogCore({
+        config: preset,
+      }),
+      done,
+    );
+  });
+
+  it('replaces #[0-9]+ with issue URL', function(done) {
+    gitDummyCommit(['new(awesome): fix #88']);
+
+    captureStreamOutput(
+      conventionalChangelogCore({
+        config: preset,
+      }),
+      done,
+    );
+  });
+
+  it('replaces @username with GitHub user URL', function(done) {
+    gitDummyCommit(['feature(awesome): issue brought up by @bcoe! on Friday']);
+
+    captureStreamOutput(
+      conventionalChangelogCore({
+        config: preset,
+      }),
+      done,
+    );
+  });
+
+  it('handles multiple notes', done => {
+    gitDummyCommit(['release: Initial release', 'Note: Made a lot of changes']);
+    gitDummyCommit(['fix(button): Made button changes', 'Note: Button is more buttony']);
+
+    captureStreamOutput(
+      conventionalChangelogCore({
+        config: preset,
+      }),
+      done,
+    );
+  });
+
+  it('supports non public GitHub repository locations', function(done) {
+    gitDummyCommit(['update(*): implementing #5 by @dlmr', ' closes #10']);
+
+    captureStreamOutput(
+      conventionalChangelogCore({
+        config: preset,
+        pkg: {
+          version: 'v3.0.0',
+          repository: 'https://github.internal.example.com/conventional-changelog/internal',
+        },
+      }),
+      done,
+    );
+  });
+
+  it('only replaces with link to user if it is an username', function(done) {
+    gitDummyCommit(['fix: use npm@5 (@username)']);
+    gitDummyCommit([
+      'build(deps): bump @dummy/package from 7.1.2 to 8.0.0',
+      'break: The Change is huge.',
+    ]);
+
+    captureStreamOutput(
+      conventionalChangelogCore({
+        config: preset,
+      }),
+      done,
+    );
+  });
+});
