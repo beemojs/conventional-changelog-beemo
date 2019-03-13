@@ -87,7 +87,7 @@ They are easier now!
 
 #### 🔑 Security
 
-- **[auth]** improved logic ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- **[auth]** improved logic ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d)), closes [#3](https://github.com/beemojs/conventional-changelog-beemo/issues/3)
 
 #### 🎨 Styles
 

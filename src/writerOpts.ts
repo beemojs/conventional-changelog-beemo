@@ -1,3 +1,5 @@
+/* eslint-disable complexity, sort-keys, no-param-reassign */
+
 import fs from 'fs';
 import path from 'path';
 import { WriterOptions, CommitGroupLabel, Context, Reference } from './types';
@@ -82,7 +84,7 @@ const options: Partial<WriterOptions> = {
     context.groupEmojis = groupEmojis;
 
     if (!commit.type) {
-      return;
+      return undefined;
     }
 
     // Use consistent values for snapshots
@@ -134,6 +136,7 @@ const options: Partial<WriterOptions> = {
     }
 
     if (typeof commit.hash === 'string') {
+      // eslint-disable-next-line no-magic-numbers
       commit.hash = commit.hash.substring(0, 7);
     }
 
@@ -155,7 +158,7 @@ const options: Partial<WriterOptions> = {
     // Link users
     if (context.host) {
       commit.message = commit.message.replace(
-        /\B@([a-z0-9](?:-?[a-z0-9/]){0,38})/g,
+        /\B@([a-z0-9](?:-?[a-z0-9/]){0,38})/gu,
         (_, username) => {
           if (username.includes('/')) {
             return `@${username}`;

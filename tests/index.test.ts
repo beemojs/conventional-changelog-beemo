@@ -1,11 +1,13 @@
-import stream from 'stream';
+/* eslint-disable jest/expect-expect */
+
+import Stream from 'stream';
 import conventionalChangelogCore from 'conventional-changelog-core';
 import gitDummyCommit from 'git-dummy-commit';
 import shell from 'shelljs';
 import preset from '../src';
 
 describe('conventional-changelog-beemo', () => {
-  function captureStreamOutput(stream: stream.Readable, done: jest.DoneCallback) {
+  function captureStreamOutput(stream: Stream.Readable, done: jest.DoneCallback) {
     let data = '';
 
     stream
@@ -45,7 +47,7 @@ describe('conventional-changelog-beemo', () => {
     gitDummyCommit('Random commit with no type');
     gitDummyCommit('docs: added getting started');
     gitDummyCommit('style(button): polished rounded corners');
-    gitDummyCommit('security(auth): improved logic', 'fixes #3');
+    gitDummyCommit(['security(auth): improved logic', 'fixes #3']);
     gitDummyCommit('Revert PR #1');
     gitDummyCommit('ci(travis): fixed yaml config');
     gitDummyCommit('build(deps): updated dev tools');
@@ -77,7 +79,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('works if there is a semver tag', function(done) {
+  it('works if there is a semver tag', done => {
     shell.exec('git tag v1.0.0');
     gitDummyCommit('update: some more features');
 
@@ -90,7 +92,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('works with unknown host', function(done) {
+  it('works with unknown host', done => {
     gitDummyCommit('docs: add manual');
 
     captureStreamOutput(
@@ -105,7 +107,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('uses h1 for major versions', function(done) {
+  it('uses h1 for major versions', done => {
     gitDummyCommit('break: new shit');
     gitDummyCommit('release: new stuff');
     gitDummyCommit('fix: just a patch');
@@ -118,7 +120,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('uses h2 for minor versions', function(done) {
+  it('uses h2 for minor versions', done => {
     gitDummyCommit('new: new shit');
     gitDummyCommit('update: new stuff');
     gitDummyCommit('feature(modal): better modals');
@@ -132,7 +134,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('uses h3 for patch versions', function(done) {
+  it('uses h3 for patch versions', done => {
     gitDummyCommit('docs: add a manual');
     gitDummyCommit('fix: just a patch');
 
@@ -144,7 +146,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('replaces #[0-9]+ with issue URL', function(done) {
+  it('replaces #[0-9]+ with issue URL', done => {
     gitDummyCommit(['new(awesome): fix #88']);
 
     captureStreamOutput(
@@ -155,7 +157,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('replaces @username with GitHub user URL', function(done) {
+  it('replaces @username with GitHub user URL', done => {
     gitDummyCommit(['feature(awesome): issue brought up by @bcoe! on Friday']);
 
     captureStreamOutput(
@@ -178,7 +180,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('supports non public GitHub repository locations', function(done) {
+  it('supports non public GitHub repository locations', done => {
     gitDummyCommit(['update(events): implementing #5 by @dlmr', ' closes #10']);
     gitDummyCommit('new: why this work?');
 
@@ -194,7 +196,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('only replaces with link to user if it is an username', function(done) {
+  it('only replaces with link to user if it is an username', done => {
     gitDummyCommit(['fix: use npm@5 (@username)']);
     gitDummyCommit([
       'build(deps): bump @dummy/package from 7.1.2 to 8.0.0',
@@ -209,7 +211,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('handles merge commits', function(done) {
+  it('handles merge commits', done => {
     gitDummyCommit(['fix: use yarn']);
     gitDummyCommit('Merge pull request #29 from owner/repo');
 
@@ -221,7 +223,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('handles revert type', function(done) {
+  it('handles revert type', done => {
     gitDummyCommit('revert(foo): undo this');
     gitDummyCommit('Revert this is the PR title');
 

@@ -1,13 +1,13 @@
 import { ParserOptions } from './types';
 
 const options: Partial<ParserOptions> = {
-  headerPattern: /^(\w+)(?:\(([a-z0-9\-\.]+)\))?: (.*)$/,
   headerCorrespondence: ['type', 'scope', 'message'],
-  mergePattern: /^Merged? pull request #(\d+) from (.*)/,
+  headerPattern: /^(\w+)(?:\(([a-z0-9\-.,]+)\))?: (.*)$/u,
   mergeCorrespondence: ['pr', 'source'],
+  mergePattern: /^Merged? pull request #(\d+) from (.*)/u,
   noteKeywords: 'Note',
-  revertPattern: /^Revert|revert:/,
   revertCorrespondence: [],
+  revertPattern: /^Revert|revert:/u,
 };
 
 export default options;

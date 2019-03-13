@@ -1,3 +1,5 @@
+/* eslint-disable complexity */
+
 import parserOpts from './parserOpts';
 import { BumpOptions, SemverLevel } from './types';
 
@@ -5,7 +7,7 @@ const options: BumpOptions = {
   parserOpts,
 
   whatBump(commits) {
-    let level: SemverLevel = 2;
+    let level: SemverLevel = null;
     let breakings = 0;
     let features = 0;
 
@@ -18,11 +20,21 @@ const options: BumpOptions = {
         if (level === 2) {
           level = 1;
         }
+      } else if (
+        commit.type === 'fix' ||
+        commit.type === 'style' ||
+        commit.type === 'security' ||
+        commit.type === 'revert' ||
+        commit.type === 'misc'
+      ) {
+        if (level === null) {
+          level = 2;
+        }
       }
     });
 
     return {
-      level: level,
+      level,
       reason: `There are ${breakings} breaking changes and ${features} new features`,
     };
   },

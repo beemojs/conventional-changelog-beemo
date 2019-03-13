@@ -136,7 +136,7 @@ export interface WriterOptions {
   transform: (commit: Commit, context: Context) => Commit | undefined;
 }
 
-export type SemverLevel = 0 | 1 | 2; // major | minor | patch
+export type SemverLevel = 0 | 1 | 2 | null; // major | minor | patch
 
 export interface BumpOptions {
   parserOpts: Partial<ParserOptions>;
