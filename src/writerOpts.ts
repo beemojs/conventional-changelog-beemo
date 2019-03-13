@@ -1,18 +1,33 @@
 import fs from 'fs';
 import path from 'path';
-import { WriterOptions, Context, Reference } from './types';
+import { WriterOptions, CommitGroupLabel, Context, Reference } from './types';
 
-const groupEmojis = {
+type GroupMap<T> = { [K in CommitGroupLabel]: T };
+
+const groupEmojis: GroupMap<string> = {
   Breaking: '💥',
-  Release: '🎉',
-  Updates: '🚀',
-  Fixes: '🐞',
   Docs: '📘',
-  Styles: '🎨',
-  Security: '🔑',
-  Reverts: '⚙️',
+  Fixes: '🐞',
   Internals: '🛠',
-  Misc: '',
+  Misc: '📦',
+  Release: '🎉',
+  Reverts: '⚙️',
+  Security: '🔑',
+  Styles: '🎨',
+  Updates: '🚀',
+};
+
+const sortWeights: GroupMap<number> = {
+  Release: 4,
+  Breaking: 3,
+  Updates: 2,
+  Fixes: 1,
+  Security: 0,
+  Styles: -1,
+  Docs: -2,
+  Misc: -3,
+  Reverts: -4,
+  Internals: -5,
 };
 
 function createLink(paths: string[], context: Context, reference: Partial<Reference> = {}): string {
@@ -49,27 +64,14 @@ const options: Partial<WriterOptions> = {
   groupBy: 'label',
   commitsSort: ['scope', 'message'],
   commitGroupsSort(groupA, groupB) {
-    // Always first
-    if (groupB.title === 'Breaking' || groupB.title === 'Release') {
-      return 3;
+    const aWeight = sortWeights[groupA.title] || 0;
+    const bWeight = sortWeights[groupB.title] || 0;
+
+    if (aWeight === 0 && bWeight === 0) {
+      return groupA.title.localeCompare(groupB.title);
     }
 
-    // Always 2nd
-    if (groupB.title === 'Updates') {
-      return 2;
-    }
-
-    // Always 2nd to last
-    if (groupB.title === 'Misc') {
-      return -2;
-    }
-
-    // Always last
-    if (groupB.title === 'Internals') {
-      return -3;
-    }
-
-    return groupA.title.localeCompare(groupB.title);
+    return bWeight - aWeight;
   },
 
   // Notes
@@ -89,6 +91,14 @@ const options: Partial<WriterOptions> = {
       context.date = '2019-02-26';
     }
 
+    // Override type for specific scenarios
+    if (commit.revert) {
+      commit.type = 'revert';
+    } else if (commit.merge) {
+      commit.type = 'misc';
+    }
+
+    // Define readable labels based on type
     if (commit.type === 'break') {
       commit.label = 'Breaking';
     } else if (commit.type === 'release') {
@@ -116,6 +126,7 @@ const options: Partial<WriterOptions> = {
       commit.label = 'Misc';
     }
 
+    // Handlebar helpers
     if (commit.type === 'break' || commit.type === 'release') {
       context.isMajor = true;
     } else if (commit.type === 'new' || commit.type === 'update' || commit.type === 'feature') {

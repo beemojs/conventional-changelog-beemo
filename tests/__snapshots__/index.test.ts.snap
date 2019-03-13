@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`conventional-changelog-beemo handles merge commits 1`] = `
+"### 0.0.0 - 2019-02-26
+
+#### 🐞 Fixes
+
+- use yarn ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+`;
+
 exports[`conventional-changelog-beemo handles multiple notes 1`] = `
 "# 0.0.0 - 2019-02-26
 
@@ -14,6 +22,14 @@ Made a lot of changes
 #### 🐞 Fixes
 
 - **[button]** Made button changes ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+`;
+
+exports[`conventional-changelog-beemo handles revert type 1`] = `
+"### 0.0.0 - 2019-02-26
+
+#### ⚙️ Reverts
+
+- **[foo]** undo this ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
 `;
 
 exports[`conventional-changelog-beemo only replaces with link to user if it is an username 1`] = `
@@ -44,18 +60,70 @@ exports[`conventional-changelog-beemo replaces @username with GitHub user URL 1`
 - **[awesome]** issue brought up by [@bcoe](https://github.com/bcoe)! on Friday ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
 `;
 
-exports[`conventional-changelog-beemo supports non public GitHub repository locations 1`] = `"### 0.0.0 - 2019-03-11"`;
+exports[`conventional-changelog-beemo supports all types at once 1`] = `
+"# 0.0.0 - 2019-02-26
+
+New build system.
+
+They are easier now!
+
+#### 🎉 Release
+
+- New major! ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 💥 Breaking
+
+- Forms have changed ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 🚀 Updates
+
+- amazing new module ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- **[core]** settings refactor ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- **[modal]** added accessibility ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d)), closes [#1](https://github.com/beemojs/conventional-changelog-beemo/issues/1) [#2](https://github.com/beemojs/conventional-changelog-beemo/issues/2)
+
+#### 🐞 Fixes
+
+- updated i18n ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 🔑 Security
+
+- **[auth]** improved logic ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 🎨 Styles
+
+- **[button]** polished rounded corners ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 📘 Docs
+
+- added getting started ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 🛠 Internals
+
+- **[deps]** updated dev tools ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- **[travis]** fixed yaml config ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- setup testing framework ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- **[ts]** updated types ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+`;
+
+exports[`conventional-changelog-beemo supports non public GitHub repository locations 1`] = `
+"## 0.0.0 - 2019-02-26
+
+#### 🚀 Updates
+
+- **[events]** implementing #5 by [@dlmr](https://github.com/dlmr) ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d)), closes [#5](https://github.com/beemojs/conventional-changelog-beemo/issues/5) [#10](https://github.com/beemojs/conventional-changelog-beemo/issues/10)
+- why this work? ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+`;
 
 exports[`conventional-changelog-beemo uses h1 for major versions 1`] = `
 "# 0.0.0 - 2019-02-26
 
-#### 💥 Breaking
-
-- new shit ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
-
 #### 🎉 Release
 
 - new stuff ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 💥 Breaking
+
+- new shit ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 
 #### 🐞 Fixes
 
@@ -79,13 +147,13 @@ exports[`conventional-changelog-beemo uses h2 for minor versions 1`] = `
 exports[`conventional-changelog-beemo uses h3 for patch versions 1`] = `
 "### 0.0.0 - 2019-02-26
 
-#### 📘 Docs
-
-- add a manual ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
-
 #### 🐞 Fixes
 
-- just a patch ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+- just a patch ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 📘 Docs
+
+- add a manual ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
 `;
 
 exports[`conventional-changelog-beemo works if there is a semver tag 1`] = `

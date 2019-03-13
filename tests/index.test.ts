@@ -35,6 +35,31 @@ describe('conventional-changelog-beemo', () => {
     shell.rm('-rf', 'tmp');
   });
 
+  it('supports all types at once', done => {
+    gitDummyCommit(['release: New major!', 'Note: New build system.']);
+    gitDummyCommit(['break: Forms have changed', 'Note: They are easier now!']);
+    gitDummyCommit(['new: amazing new module', 'Not backward compatible.']);
+    gitDummyCommit('fix: updated i18n');
+    gitDummyCommit(['update(modal): added accessibility', 'closes #1, #2']);
+    gitDummyCommit('feature(core): settings refactor');
+    gitDummyCommit('Random commit with no type');
+    gitDummyCommit('docs: added getting started');
+    gitDummyCommit('style(button): polished rounded corners');
+    gitDummyCommit('security(auth): improved logic', 'fixes #3');
+    gitDummyCommit('Revert PR #1');
+    gitDummyCommit('ci(travis): fixed yaml config');
+    gitDummyCommit('build(deps): updated dev tools');
+    gitDummyCommit('test: setup testing framework');
+    gitDummyCommit('internal(ts): updated types');
+
+    captureStreamOutput(
+      conventionalChangelogCore({
+        config: preset,
+      }),
+      done,
+    );
+  });
+
   it('works if there is no semver tag', done => {
     gitDummyCommit(['build: first build setup', 'Note: New build system.']);
     gitDummyCommit(['ci(travis): add TravisCI pipeline', 'Continuously integrated.']);
@@ -154,7 +179,8 @@ describe('conventional-changelog-beemo', () => {
   });
 
   it('supports non public GitHub repository locations', function(done) {
-    gitDummyCommit(['update(*): implementing #5 by @dlmr', ' closes #10']);
+    gitDummyCommit(['update(events): implementing #5 by @dlmr', ' closes #10']);
+    gitDummyCommit('new: why this work?');
 
     captureStreamOutput(
       conventionalChangelogCore({
@@ -174,6 +200,30 @@ describe('conventional-changelog-beemo', () => {
       'build(deps): bump @dummy/package from 7.1.2 to 8.0.0',
       'break: The Change is huge.',
     ]);
+
+    captureStreamOutput(
+      conventionalChangelogCore({
+        config: preset,
+      }),
+      done,
+    );
+  });
+
+  it('handles merge commits', function(done) {
+    gitDummyCommit(['fix: use yarn']);
+    gitDummyCommit('Merge pull request #29 from owner/repo');
+
+    captureStreamOutput(
+      conventionalChangelogCore({
+        config: preset,
+      }),
+      done,
+    );
+  });
+
+  it('handles revert type', function(done) {
+    gitDummyCommit('revert(foo): undo this');
+    gitDummyCommit('Revert this is the PR title');
 
     captureStreamOutput(
       conventionalChangelogCore({
