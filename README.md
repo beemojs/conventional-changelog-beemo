@@ -1,8 +1,8 @@
 # conventional-changelog-beemo
 
-[![Build Status](https://travis-ci.org/milesj/conventional-changelog-beemo.svg?branch=master)](https://travis-ci.org/milesj/conventional-changelog-beemo)
+[![Build Status](https://travis-ci.org/beemojs/conventional-changelog-beemo.svg?branch=master)](https://travis-ci.org/beemojs/conventional-changelog-beemo)
 [![npm version](https://badge.fury.io/js/conventional-changelog-beemo.svg)](https://www.npmjs.com/package/conventional-changelog-beemo)
-[![npm deps](https://david-dm.org/milesj/conventional-changelog-beemo.svg)](https://www.npmjs.com/package/conventional-changelog-beemo)
+[![npm deps](https://david-dm.org/beemojs/conventional-changelog-beemo.svg)](https://www.npmjs.com/package/conventional-changelog-beemo)
 
 > [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) >
 > [beemo](https://github.com/beemojs/beemo) preset
@@ -89,7 +89,7 @@ Would generate the following changelog:
 - **[Button]** Add new Button component ([a1b2c3d][fake-commit])
 - **[Modal]** Refactor accessibility support ([a1b2c3d][fake-commit])
 
-#### 🐞 Fixed
+#### 🐞 Fixes
 
 - **[auth]** Fixed a bug with the authentication flow ([a1b2c3d][fake-commit])
 
