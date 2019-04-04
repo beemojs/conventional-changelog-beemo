@@ -91,6 +91,7 @@ const options: Partial<WriterOptions> = {
     if (process.env.NODE_ENV === 'test') {
       commit.hash = 'a1b2c3d';
       context.date = '2019-02-26';
+      context.version = '0.0.0';
     }
 
     // Override type for specific scenarios
