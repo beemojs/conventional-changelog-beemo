@@ -29,7 +29,7 @@
     "posttest": "yarn run eslint"
   },
   "devDependencies": {
-    "@milesj/build-tools": "^0.37.2",
+    "@milesj/build-tools": "^0.37.3",
     "@types/node": "^11.13.0",
     "@types/shelljs": "^0.8.4",
     "conventional-changelog-core": "^3.1.6",
