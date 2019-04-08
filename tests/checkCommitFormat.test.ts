@@ -32,4 +32,11 @@ describe('checkCommitFormat()', () => {
       scope: 'foo,bar',
     });
   });
+
+  it('supports upper case scopes', () => {
+    expect(checkCommitFormat('ci(FooBar): Did something')).toEqual({
+      type: 'ci',
+      scope: 'FooBar',
+    });
+  });
 });

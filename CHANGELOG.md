@@ -1,4 +1,10 @@
-## 1.1.0 - 2019-04-4
+### 1.1.1 - 2019-04-08
+
+#### 🐞 Fixes
+
+- Allow uppercase characters in commit message scope.
+
+## 1.1.0 - 2019-04-04
 
 #### 🚀 Updates
 
