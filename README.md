@@ -56,7 +56,8 @@ The scope is optional but useful in defining granularity in a commit message. Sc
 to target a specific feature or module within the project, for example:
 `new(Button): Add a new Button component`.
 
-Scopes will appear in the changelog before each line item.
+Scopes will appear in the changelog before each line item and accept the following characters:
+`a-z`, `0-9`, `-`, `.`, `,`.
 
 ### Message
 
@@ -72,7 +73,7 @@ Given the following commit messages:
 
 ```
 new(Button): Add new Button component
-update(Model): Refactor accessibility support
+update(Modal,Tooltip): Refactor accessibility support
 ci: Add DangerJS to pipeline
 test: Add missing tests for a handful of files
 fix(auth): Fixed a bug with the authentication flow
@@ -87,7 +88,7 @@ Would generate the following changelog:
 #### 🚀 Updates
 
 - **[Button]** Add new Button component ([a1b2c3d][fake-commit])
-- **[Modal]** Refactor accessibility support ([a1b2c3d][fake-commit])
+- **[Modal,Tooltip]** Refactor accessibility support ([a1b2c3d][fake-commit])
 
 #### 🐞 Fixes
 
