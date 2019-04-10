@@ -8,10 +8,11 @@ type GroupMap<T> = { [K in CommitGroupLabel]: T };
 
 const groupEmojis: GroupMap<string> = {
   Breaking: '💥',
+  Dependencies: '📦',
   Docs: '📘',
   Fixes: '🐞',
   Internals: '🛠',
-  Misc: '📦',
+  Misc: '📋',
   Release: '🎉',
   Reverts: '⚙️',
   Security: '🔑',
@@ -27,6 +28,7 @@ const sortWeights: GroupMap<number> = {
   Security: 0,
   Styles: -1,
   Docs: -2,
+  Dependencies: -3,
   Misc: -3,
   Reverts: -4,
   Internals: -5,
@@ -110,6 +112,8 @@ const options: Partial<WriterOptions> = {
       commit.label = 'Updates';
     } else if (commit.type === 'fix') {
       commit.label = 'Fixes';
+    } else if (commit.type === 'deps') {
+      commit.label = 'Dependencies';
     } else if (commit.type === 'docs') {
       commit.label = 'Docs';
     } else if (commit.type === 'style') {

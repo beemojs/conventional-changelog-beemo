@@ -53,6 +53,7 @@ describe('conventional-changelog-beemo', () => {
     gitDummyCommit('build(deps): updated dev tools');
     gitDummyCommit('test: setup testing framework');
     gitDummyCommit('internal(ts): updated types');
+    gitDummyCommit('deps(babel,jest): Bumped to latest');
 
     captureStreamOutput(
       conventionalChangelogCore({

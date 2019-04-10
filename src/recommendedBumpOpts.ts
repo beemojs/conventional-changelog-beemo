@@ -22,6 +22,7 @@ const options: BumpOptions = {
         }
       } else if (
         commit.type === 'fix' ||
+        commit.type === 'deps' ||
         commit.type === 'style' ||
         commit.type === 'security' ||
         commit.type === 'revert' ||

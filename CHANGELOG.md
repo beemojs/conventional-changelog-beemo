@@ -1,3 +1,10 @@
+## 1.2.0 - 2019-04-10
+
+#### 🚀 Updates
+
+- Added a new commit prefix type, `deps`, which can be used when bumping dependencies. This is a
+  patch version bump.
+
 ### 1.1.1 - 2019-04-08
 
 #### 🐞 Fixes

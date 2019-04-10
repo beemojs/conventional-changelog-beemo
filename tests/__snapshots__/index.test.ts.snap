@@ -97,6 +97,10 @@ They are easier now!
 
 - added getting started ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 
+#### 📦 Dependencies
+
+- **[babel,jest]** Bumped to latest ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
 #### 🛠 Internals
 
 - **[deps]** updated dev tools ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
