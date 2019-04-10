@@ -79,7 +79,7 @@ They are easier now!
 
 - amazing new module ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 - **[core]** settings refactor ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
-- **[modal]** added accessibility ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d)), closes [#1](https://github.com/beemojs/conventional-changelog-beemo/issues/1) [#2](https://github.com/beemojs/conventional-changelog-beemo/issues/2)
+- **[modal, button]** added accessibility ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d)), closes [#1](https://github.com/beemojs/conventional-changelog-beemo/issues/1) [#2](https://github.com/beemojs/conventional-changelog-beemo/issues/2)
 
 #### 🐞 Fixes
 
@@ -176,10 +176,15 @@ New build system.
 #### 🚀 Updates
 
 - amazing new module ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- **[ngOptions]** make it faster ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d)), closes [#1](https://github.com/beemojs/conventional-changelog-beemo/issues/1) [#2](https://github.com/beemojs/conventional-changelog-beemo/issues/2)
 
 #### 🐞 Fixes
 
 - **[compile]** avoid a bug ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### ⚙️ Reverts
+
+- **[ngOptions]** bad commit ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 
 #### 🛠 Internals
 

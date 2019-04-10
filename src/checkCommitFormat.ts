@@ -3,8 +3,9 @@ import { CommitType } from './types';
 export default function checkCommitFormat(
   commit: string,
 ): null | { scope: string; type: CommitType } {
+  // Keep in sync with parserOpts
   const match = commit.match(
-    /^(break|build|ci|deps|docs|feature|fix|internal|misc|new|release|revert|security|style|test|update)(?:\(([a-zA-Z0-9\-.,]+)\))?:/u,
+    /^(break|build|ci|deps|docs|feature|fix|internal|misc|new|release|revert|security|style|test|update)(?:\(([a-zA-Z0-9\-., ]+)\))?:/u,
   );
 
   if (!match) {

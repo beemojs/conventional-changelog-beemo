@@ -4,6 +4,7 @@
 
 - Added a new commit prefix type, `deps`, which can be used when bumping dependencies. This is a
   patch version bump.
+- Added space support to commit scopes.
 
 ### 1.1.1 - 2019-04-08
 

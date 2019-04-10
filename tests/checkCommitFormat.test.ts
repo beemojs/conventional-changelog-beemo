@@ -39,4 +39,11 @@ describe('checkCommitFormat()', () => {
       scope: 'FooBar',
     });
   });
+
+  it('supports spaces', () => {
+    expect(checkCommitFormat('ci(Foo, Bar Baz): Did something')).toEqual({
+      type: 'ci',
+      scope: 'Foo, Bar Baz',
+    });
+  });
 });

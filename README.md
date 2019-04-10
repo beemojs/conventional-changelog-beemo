@@ -37,6 +37,7 @@ prefixing your commit message.
 #### Patch
 
 - `fix` - Fixes existing functionality.
+- `deps` - Bumps dependencies.
 - `docs` - Updates documentation.
 - `style` - Updates visual styles, like CSS.
 - `security` - Improves security.
@@ -57,7 +58,7 @@ to target a specific feature or module within the project, for example:
 `new(Button): Add a new Button component`.
 
 Scopes will appear in the changelog before each line item and accept the following characters:
-`a-z`, `0-9`, `-`, `.`, `,`.
+`a-z`, `0-9`, `-`, `.`, `,`, and spaces.
 
 ### Message
 

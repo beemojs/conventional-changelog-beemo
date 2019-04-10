@@ -42,7 +42,7 @@ describe('conventional-changelog-beemo', () => {
     gitDummyCommit(['break: Forms have changed', 'Note: They are easier now!']);
     gitDummyCommit(['new: amazing new module', 'Not backward compatible.']);
     gitDummyCommit('fix: updated i18n');
-    gitDummyCommit(['update(modal): added accessibility', 'closes #1, #2']);
+    gitDummyCommit(['update(modal, button): added accessibility', 'closes #1, #2']);
     gitDummyCommit('feature(core): settings refactor');
     gitDummyCommit('Random commit with no type');
     gitDummyCommit('docs: added getting started');
