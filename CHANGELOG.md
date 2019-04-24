@@ -1,3 +1,9 @@
+### 1.2.1 - 2019-04-24
+
+#### 🐞 Fixes
+
+- Fixed a minor version bump issue when no patch commits exist.
+
 ## 1.2.0 - 2019-04-10
 
 #### 🚀 Updates

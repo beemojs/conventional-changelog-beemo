@@ -8,7 +8,7 @@ const options: Partial<ParserOptions> = {
   mergePattern: /^Merged? pull request #(\d+) from (.*)/u,
   noteKeywords: 'Note',
   revertCorrespondence: [],
-  revertPattern: /^Revert|revert:/u,
+  revertPattern: /^Revert/u,
 };
 
 export default options;

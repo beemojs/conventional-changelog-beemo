@@ -17,7 +17,7 @@ const options: BumpOptions = {
         level = 0;
       } else if (commit.type === 'new' || commit.type === 'update' || commit.type === 'feature') {
         features += 1;
-        if (level === 2) {
+        if (level === null || level === 2) {
           level = 1;
         }
       } else if (

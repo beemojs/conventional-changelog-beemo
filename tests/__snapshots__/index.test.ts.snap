@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`conventional-changelog-beemo handles merge commits 1`] = `
-"### 0.0.0 - 2019-02-26
+"### 1.0.0 - 2019-02-26
 
 #### 🐞 Fixes
 
@@ -9,7 +9,7 @@ exports[`conventional-changelog-beemo handles merge commits 1`] = `
 `;
 
 exports[`conventional-changelog-beemo handles multiple notes 1`] = `
-"# 0.0.0 - 2019-02-26
+"# 1.0.0 - 2019-02-26
 
 Button is more buttony
 
@@ -25,7 +25,7 @@ Made a lot of changes
 `;
 
 exports[`conventional-changelog-beemo handles revert type 1`] = `
-"### 0.0.0 - 2019-02-26
+"### 1.0.0 - 2019-02-26
 
 #### ⚙️ Reverts
 
@@ -33,7 +33,7 @@ exports[`conventional-changelog-beemo handles revert type 1`] = `
 `;
 
 exports[`conventional-changelog-beemo only replaces with link to user if it is an username 1`] = `
-"### 0.0.0 - 2019-02-26
+"### 1.0.0 - 2019-02-26
 
 #### 🐞 Fixes
 
@@ -45,7 +45,7 @@ exports[`conventional-changelog-beemo only replaces with link to user if it is a
 `;
 
 exports[`conventional-changelog-beemo replaces #[0-9]+ with issue URL 1`] = `
-"## 0.0.0 - 2019-02-26
+"## 1.0.0 - 2019-02-26
 
 #### 🚀 Updates
 
@@ -53,7 +53,7 @@ exports[`conventional-changelog-beemo replaces #[0-9]+ with issue URL 1`] = `
 `;
 
 exports[`conventional-changelog-beemo replaces @username with GitHub user URL 1`] = `
-"## 0.0.0 - 2019-02-26
+"## 1.0.0 - 2019-02-26
 
 #### 🚀 Updates
 
@@ -61,7 +61,7 @@ exports[`conventional-changelog-beemo replaces @username with GitHub user URL 1`
 `;
 
 exports[`conventional-changelog-beemo supports all types at once 1`] = `
-"# 0.0.0 - 2019-02-26
+"# 1.0.0 - 2019-02-26
 
 New build system.
 
@@ -110,16 +110,16 @@ They are easier now!
 `;
 
 exports[`conventional-changelog-beemo supports non public GitHub repository locations 1`] = `
-"## 0.0.0 - 2019-02-26
+"## 3.0.0 - 2019-02-26
 
 #### 🚀 Updates
 
-- **[events]** implementing #5 by [@dlmr](https://github.com/dlmr) ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d)), closes [#5](https://github.com/beemojs/conventional-changelog-beemo/issues/5) [#10](https://github.com/beemojs/conventional-changelog-beemo/issues/10)
-- why this work? ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+- **[events]** implementing #5 by [@dlmr](https://github.internal.example.com/dlmr) ([a1b2c3d](https://github.internal.example.com/conventional-changelog/internal/commit/a1b2c3d)), closes [#5](https://github.internal.example.com/conventional-changelog/internal/issues/5) [#10](https://github.internal.example.com/conventional-changelog/internal/issues/10)
+- why this work? ([a1b2c3d](https://github.internal.example.com/conventional-changelog/internal/commit/a1b2c3d))"
 `;
 
 exports[`conventional-changelog-beemo uses h1 for major versions 1`] = `
-"# 0.0.0 - 2019-02-26
+"# 1.0.0 - 2019-02-26
 
 #### 🎉 Release
 
@@ -135,7 +135,7 @@ exports[`conventional-changelog-beemo uses h1 for major versions 1`] = `
 `;
 
 exports[`conventional-changelog-beemo uses h2 for minor versions 1`] = `
-"## 0.0.0 - 2019-02-26
+"## 1.0.0 - 2019-02-26
 
 #### 🚀 Updates
 
@@ -149,7 +149,7 @@ exports[`conventional-changelog-beemo uses h2 for minor versions 1`] = `
 `;
 
 exports[`conventional-changelog-beemo uses h3 for patch versions 1`] = `
-"### 0.0.0 - 2019-02-26
+"### 1.0.0 - 2019-02-26
 
 #### 🐞 Fixes
 
@@ -161,7 +161,7 @@ exports[`conventional-changelog-beemo uses h3 for patch versions 1`] = `
 `;
 
 exports[`conventional-changelog-beemo works if there is a semver tag 1`] = `
-"## 0.0.0 - 2019-02-26
+"## 1.0.0 - 2019-02-26
 
 #### 🚀 Updates
 
@@ -169,7 +169,7 @@ exports[`conventional-changelog-beemo works if there is a semver tag 1`] = `
 `;
 
 exports[`conventional-changelog-beemo works if there is no semver tag 1`] = `
-"## 0.0.0 - 2019-02-26
+"## 1.0.0 - 2019-02-26
 
 New build system.
 
@@ -193,9 +193,9 @@ New build system.
 `;
 
 exports[`conventional-changelog-beemo works with unknown host 1`] = `
-"### 0.0.0 - 2019-02-26
+"### 1.0.0 - 2019-02-26
 
 #### 📘 Docs
 
-- add manual ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+- add manual ([a1b2c3d](http://unknown/commits/a1b2c3d))"
 `;

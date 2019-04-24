@@ -1,7 +1,9 @@
 /* eslint-disable jest/expect-expect */
 
+import path from 'path';
 import Stream from 'stream';
 import conventionalChangelogCore from 'conventional-changelog-core';
+import conventionalRecommendedBump from 'conventional-recommended-bump';
 import gitDummyCommit from 'git-dummy-commit';
 import shell from 'shelljs';
 import preset from '../src';
@@ -22,6 +24,13 @@ describe('conventional-changelog-beemo', () => {
         done();
       });
   }
+
+  const commonConfig = {
+    config: preset,
+    pkg: {
+      path: path.join(__dirname, 'package.json'),
+    },
+  };
 
   beforeEach(() => {
     (shell.config as any).resetForTesting();
@@ -57,7 +66,7 @@ describe('conventional-changelog-beemo', () => {
 
     captureStreamOutput(
       conventionalChangelogCore({
-        config: preset,
+        ...commonConfig,
       }),
       done,
     );
@@ -74,7 +83,7 @@ describe('conventional-changelog-beemo', () => {
 
     captureStreamOutput(
       conventionalChangelogCore({
-        config: preset,
+        ...commonConfig,
       }),
       done,
     );
@@ -86,7 +95,7 @@ describe('conventional-changelog-beemo', () => {
 
     captureStreamOutput(
       conventionalChangelogCore({
-        config: preset,
+        ...commonConfig,
         outputUnreleased: true,
       }),
       done,
@@ -98,10 +107,9 @@ describe('conventional-changelog-beemo', () => {
 
     captureStreamOutput(
       conventionalChangelogCore({
-        config: preset,
+        ...commonConfig,
         pkg: {
-          repository: 'unknown',
-          version: 'v2.0.0',
+          path: path.join(__dirname, 'package-unknown-repo.json'),
         },
       }),
       done,
@@ -115,7 +123,7 @@ describe('conventional-changelog-beemo', () => {
 
     captureStreamOutput(
       conventionalChangelogCore({
-        config: preset,
+        ...commonConfig,
       }),
       done,
     );
@@ -129,7 +137,7 @@ describe('conventional-changelog-beemo', () => {
 
     captureStreamOutput(
       conventionalChangelogCore({
-        config: preset,
+        ...commonConfig,
       }),
       done,
     );
@@ -141,7 +149,7 @@ describe('conventional-changelog-beemo', () => {
 
     captureStreamOutput(
       conventionalChangelogCore({
-        config: preset,
+        ...commonConfig,
       }),
       done,
     );
@@ -152,7 +160,7 @@ describe('conventional-changelog-beemo', () => {
 
     captureStreamOutput(
       conventionalChangelogCore({
-        config: preset,
+        ...commonConfig,
       }),
       done,
     );
@@ -163,7 +171,7 @@ describe('conventional-changelog-beemo', () => {
 
     captureStreamOutput(
       conventionalChangelogCore({
-        config: preset,
+        ...commonConfig,
       }),
       done,
     );
@@ -175,7 +183,7 @@ describe('conventional-changelog-beemo', () => {
 
     captureStreamOutput(
       conventionalChangelogCore({
-        config: preset,
+        ...commonConfig,
       }),
       done,
     );
@@ -187,10 +195,9 @@ describe('conventional-changelog-beemo', () => {
 
     captureStreamOutput(
       conventionalChangelogCore({
-        config: preset,
+        ...commonConfig,
         pkg: {
-          version: 'v3.0.0',
-          repository: 'https://github.internal.example.com/conventional-changelog/internal',
+          path: path.join(__dirname, 'package-custom-repo.json'),
         },
       }),
       done,
@@ -206,7 +213,7 @@ describe('conventional-changelog-beemo', () => {
 
     captureStreamOutput(
       conventionalChangelogCore({
-        config: preset,
+        ...commonConfig,
       }),
       done,
     );
@@ -218,7 +225,7 @@ describe('conventional-changelog-beemo', () => {
 
     captureStreamOutput(
       conventionalChangelogCore({
-        config: preset,
+        ...commonConfig,
       }),
       done,
     );
@@ -230,9 +237,97 @@ describe('conventional-changelog-beemo', () => {
 
     captureStreamOutput(
       conventionalChangelogCore({
-        config: preset,
+        ...commonConfig,
       }),
       done,
     );
+  });
+
+  describe('recommended bump', () => {
+    ['break', 'release'].forEach(major => {
+      it(`bumps major version for ${major}`, done => {
+        gitDummyCommit(`${major}: new stuff`);
+        gitDummyCommit(`${major}(todo): with scope`);
+
+        conventionalRecommendedBump(
+          {
+            ...commonConfig,
+          },
+          (error: Error | null, result: any) => {
+            expect(error).toBeNull();
+            expect(result).toEqual({
+              level: 0,
+              reason: 'There are 2 breaking changes and 0 new features',
+              releaseType: 'major',
+            });
+            done();
+          },
+        );
+      });
+    });
+
+    ['new', 'update', 'feature'].forEach(minor => {
+      it(`bumps minor version for ${minor}`, done => {
+        gitDummyCommit(`${minor}: new stuff`);
+        gitDummyCommit(`${minor}(todo): with scope`);
+
+        conventionalRecommendedBump(
+          {
+            ...commonConfig,
+          },
+          (error: Error | null, result: any) => {
+            expect(error).toBeNull();
+            expect(result).toEqual({
+              level: 1,
+              reason: 'There are 0 breaking changes and 2 new features',
+              releaseType: 'minor',
+            });
+            done();
+          },
+        );
+      });
+    });
+
+    ['fix', 'deps', 'style', 'security', 'revert', 'misc'].forEach(patch => {
+      it(`bumps patch version for ${patch}`, done => {
+        gitDummyCommit(`${patch}: new stuff`);
+        gitDummyCommit(`${patch}(todo): with scope`);
+
+        conventionalRecommendedBump(
+          {
+            ...commonConfig,
+            ignoreReverted: false,
+          },
+          (error: Error | null, result: any) => {
+            expect(error).toBeNull();
+            expect(result).toEqual({
+              level: 2,
+              reason: 'There are 0 breaking changes and 0 new features',
+              releaseType: 'patch',
+            });
+            done();
+          },
+        );
+      });
+    });
+
+    it('does nothing when no type exist', done => {
+      gitDummyCommit('new stuff');
+      gitDummyCommit('commit without a type');
+
+      conventionalRecommendedBump(
+        {
+          ...commonConfig,
+        },
+        (error: Error | null, result: any) => {
+          expect(error).toBeNull();
+          expect(result).toEqual({
+            level: null,
+            reason: 'There are 0 breaking changes and 0 new features',
+          });
+          done();
+        },
+      );
+    });
   });
 });
