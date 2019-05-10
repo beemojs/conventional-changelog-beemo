@@ -46,6 +46,13 @@ export type CommitGroupLabel =
   | 'Internals'
   | 'Misc';
 
+export interface Group {
+  bump?: 'patch' | 'minor' | 'major';
+  emoji: string;
+  label: CommitGroupLabel;
+  types: CommitType[];
+}
+
 export interface Commit {
   body: string | null;
   footer: string | null;

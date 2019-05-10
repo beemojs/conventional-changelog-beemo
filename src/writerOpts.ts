@@ -1,24 +1,19 @@
-/* eslint-disable complexity, sort-keys, no-param-reassign */
+/* eslint-disable sort-keys, no-param-reassign */
 
 import fs from 'fs';
 import path from 'path';
+import getTypeGroup, { GROUPS } from './getTypeGroup';
 import { WriterOptions, CommitGroupLabel, Context, Reference } from './types';
 
 type GroupMap<T> = { [K in CommitGroupLabel]: T };
 
-const groupEmojis: GroupMap<string> = {
-  Breaking: '💥',
-  Dependencies: '📦',
-  Docs: '📘',
-  Fixes: '🐞',
-  Internals: '🛠',
-  Misc: '📋',
-  Release: '🎉',
-  Reverts: '⚙️',
-  Security: '🔑',
-  Styles: '🎨',
-  Updates: '🚀',
-};
+const groupEmojis: GroupMap<string> = GROUPS.reduce(
+  (data, group) => ({
+    ...data,
+    [group.label]: group.emoji,
+  }),
+  {},
+) as any;
 
 const sortWeights: GroupMap<number> = {
   Release: 4,
@@ -102,43 +97,18 @@ const options: Partial<WriterOptions> = {
       commit.type = 'misc';
     }
 
-    // Define readable labels based on type
-    if (commit.type === 'break') {
-      commit.label = 'Breaking';
-    } else if (commit.type === 'release') {
-      commit.label = 'Release';
-    } else if (commit.type === 'new' || commit.type === 'update' || commit.type === 'feature') {
-      commit.label = 'Updates';
-    } else if (commit.type === 'fix') {
-      commit.label = 'Fixes';
-    } else if (commit.type === 'deps') {
-      commit.label = 'Dependencies';
-    } else if (commit.type === 'docs') {
-      commit.label = 'Docs';
-    } else if (commit.type === 'style') {
-      commit.label = 'Styles';
-    } else if (commit.type === 'security') {
-      commit.label = 'Security';
-    } else if (commit.type === 'revert') {
-      commit.label = 'Reverts';
-    } else if (
-      commit.type === 'ci' ||
-      commit.type === 'build' ||
-      commit.type === 'test' ||
-      commit.type === 'internal'
-    ) {
-      commit.label = 'Internals';
-    } else {
-      commit.label = 'Misc';
-    }
+    // Define metadata based on type
+    const group = getTypeGroup(commit.type);
 
-    // Handlebar helpers
-    if (commit.type === 'break' || commit.type === 'release') {
+    commit.label = group.label;
+
+    if (group.bump === 'major') {
       context.isMajor = true;
-    } else if (commit.type === 'new' || commit.type === 'update' || commit.type === 'feature') {
+    } else if (group.bump === 'minor') {
       context.isMinor = true;
     }
 
+    // Use shorthand hashes
     if (typeof commit.hash === 'string') {
       // eslint-disable-next-line no-magic-numbers
       commit.hash = commit.hash.substring(0, 7);

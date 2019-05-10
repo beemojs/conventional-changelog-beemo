@@ -1,5 +1,10 @@
 ## 1.3.0 - 2019-05-09
 
+#### 🚀 Updates
+
+- Added `getTypeGroup` function, which will return group information (emoji, label, etc) based on
+  commit type.
+
 ### 1.2.1 - 2019-04-24
 
 #### 🐞 Fixes
