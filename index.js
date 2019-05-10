@@ -1,5 +1,11 @@
-const beemo = require('./lib').default;
+// This is ugly, but we can't use `export =` and named exports
+// within TypeScript, so we need to fake it here so our types
+// resolve correctly in consumers.
 
-beemo.checkCommitFormat = require('./lib/checkCommitFormat').default;
+const imports = require('./lib');
 
-module.exports = beemo;
+const { config, named } = imports;
+
+Object.assign(config, named);
+
+module.exports = config;
