@@ -4,8 +4,6 @@
 
 const imports = require('./lib');
 
-const { config, named } = imports;
+Object.assign(imports.config, imports);
 
-Object.assign(config, named);
-
-module.exports = config;
+module.exports = imports.config;
