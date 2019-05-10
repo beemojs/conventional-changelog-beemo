@@ -24,6 +24,7 @@ export type CommitType =
   | 'fix'
   | 'deps'
   | 'docs'
+  | 'patch'
   | 'style'
   | 'security'
   | 'revert'

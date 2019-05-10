@@ -84,6 +84,7 @@ They are easier now!
 #### 🐞 Fixes
 
 - updated i18n ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- **[router]** Fix params ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 
 #### 🔑 Security
 

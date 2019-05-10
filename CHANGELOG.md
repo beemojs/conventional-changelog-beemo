@@ -4,6 +4,11 @@
 
 - Added `getTypeGroup` function, which will return group information (emoji, label, etc) based on
   commit type.
+- Added a new commit prefix type, `patch`, which is an alias for `fix`.
+
+#### 🛠 Internals
+
+- **[TS]** Fixed some index import issues.
 
 ### 1.2.1 - 2019-04-24
 

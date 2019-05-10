@@ -63,6 +63,7 @@ describe('conventional-changelog-beemo', () => {
     gitDummyCommit('test: setup testing framework');
     gitDummyCommit('internal(ts): updated types');
     gitDummyCommit('deps(babel,jest): Bumped to latest');
+    gitDummyCommit(['patch(router): Fix params']);
 
     captureStreamOutput(
       conventionalChangelogCore({
@@ -145,7 +146,7 @@ describe('conventional-changelog-beemo', () => {
 
   it('uses h3 for patch versions', done => {
     gitDummyCommit('docs: add a manual');
-    gitDummyCommit('fix: just a patch');
+    gitDummyCommit('patch: just a patch');
 
     captureStreamOutput(
       conventionalChangelogCore({
