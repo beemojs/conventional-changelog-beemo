@@ -1,7 +1,6 @@
-/* eslint-disable complexity */
-
 import parserOpts from './parserOpts';
-import { BumpOptions, SemverLevel } from './types';
+import getTypeGroup from './getTypeGroup';
+import { BumpOptions, SemverLevel, Group } from './types';
 
 const options: BumpOptions = {
   parserOpts,
@@ -12,22 +11,23 @@ const options: BumpOptions = {
     let features = 0;
 
     commits.forEach(commit => {
-      if (commit.type === 'break' || commit.type === 'release') {
+      let group: Group;
+
+      try {
+        group = getTypeGroup(commit.type);
+      } catch {
+        return;
+      }
+
+      if (group.bump === 'major') {
         breakings += 1;
         level = 0;
-      } else if (commit.type === 'new' || commit.type === 'update' || commit.type === 'feature') {
+      } else if (group.bump === 'minor') {
         features += 1;
         if (level === null || level === 2) {
           level = 1;
         }
-      } else if (
-        commit.type === 'fix' ||
-        commit.type === 'deps' ||
-        commit.type === 'style' ||
-        commit.type === 'security' ||
-        commit.type === 'revert' ||
-        commit.type === 'misc'
-      ) {
+      } else if (group.bump === 'patch') {
         if (level === null) {
           level = 2;
         }

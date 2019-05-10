@@ -63,7 +63,6 @@ export interface Commit {
   references: Reference[];
   revert: { [key: string]: string } | null;
   // Beemo
-  emoji: string;
   hash: string;
   hashLink: string;
   label: CommitGroupLabel;
