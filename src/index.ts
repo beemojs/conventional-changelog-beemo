@@ -4,17 +4,18 @@
  */
 
 import checkCommitFormat from './checkCommitFormat';
-import getTypeGroup, { GROUPS } from './getTypeGroup';
+import getTypeGroup from './getTypeGroup';
 import conventionalChangelog from './conventionalChangelog';
 import parserOpts from './parserOpts';
 import recommendedBumpOpts from './recommendedBumpOpts';
 import writerOpts from './writerOpts';
 
-export { GROUPS, checkCommitFormat, getTypeGroup };
+export { checkCommitFormat, getTypeGroup };
 
+export * from './constants';
 export * from './types';
 
-export default Promise.resolve({
+export const config = Promise.resolve({
   conventionalChangelog,
   parserOpts,
   recommendedBumpOpts,

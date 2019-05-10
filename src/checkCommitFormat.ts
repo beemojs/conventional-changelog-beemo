@@ -1,12 +1,10 @@
+import { COMMIT_FORMAT_PREFIX } from './constants';
 import { CommitType } from './types';
 
 export default function checkCommitFormat(
   commit: string,
 ): null | { scope: string; type: CommitType } {
-  // Keep in sync with parserOpts
-  const match = commit.match(
-    /^(break|build|ci|deps|docs|feature|fix|internal|misc|new|release|revert|security|style|test|update)(?:\(([a-zA-Z0-9\-., ]+)\))?:/u,
-  );
+  const match = commit.match(COMMIT_FORMAT_PREFIX);
 
   if (!match) {
     return null;

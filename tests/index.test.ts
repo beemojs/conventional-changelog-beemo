@@ -6,7 +6,7 @@ import conventionalChangelogCore from 'conventional-changelog-core';
 import conventionalRecommendedBump from 'conventional-recommended-bump';
 import gitDummyCommit from 'git-dummy-commit';
 import shell from 'shelljs';
-import preset from '../src';
+import { config } from '../src';
 
 describe('conventional-changelog-beemo', () => {
   function captureStreamOutput(stream: Stream.Readable, done: jest.DoneCallback) {
@@ -26,7 +26,7 @@ describe('conventional-changelog-beemo', () => {
   }
 
   const commonConfig = {
-    config: preset,
+    config,
     pkg: {
       path: path.join(__dirname, 'package.json'),
     },
