@@ -245,7 +245,7 @@ describe('conventional-changelog-beemo', () => {
   });
 
   describe('recommended bump', () => {
-    ['break', 'release'].forEach(major => {
+    ['break', 'breaking', 'release'].forEach(major => {
       it(`bumps major version for ${major}`, done => {
         gitDummyCommit(`${major}: new stuff`);
         gitDummyCommit(`${major}(todo): with scope`);

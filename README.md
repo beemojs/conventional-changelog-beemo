@@ -5,7 +5,7 @@
 [![npm deps](https://david-dm.org/beemojs/conventional-changelog-beemo.svg)](https://www.npmjs.com/package/conventional-changelog-beemo)
 
 > [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) >
-> [beemo](https://github.com/beemojs/beemo) preset
+> [beemo preset](https://github.com/beemojs/beemo)
 
 Beemo's commit message guidelines and changelog structure. _Now with more emojis!_
 
@@ -26,7 +26,7 @@ prefixing your commit message.
 
 #### Major
 
-- `break` - A _major_ breaking change.
+- `break`, `breaking` - A _major_ breaking change.
 - `release` - Not a breaking change but bumps the _major_ version.
 
 #### Minor

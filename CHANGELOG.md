@@ -1,3 +1,9 @@
+## 1.4.0 - 2019-07-07
+
+#### 🚀 Updates
+
+- Added `breaking` as another type alias for breaking changes.
+
 ## 1.3.0 - 2019-05-09
 
 #### 🚀 Updates

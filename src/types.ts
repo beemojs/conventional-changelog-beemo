@@ -17,6 +17,7 @@ export interface Reference {
 
 export type CommitType =
   | 'break'
+  | 'breaking'
   | 'release'
   | 'new'
   | 'update'
