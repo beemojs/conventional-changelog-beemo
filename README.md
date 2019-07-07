@@ -7,11 +7,12 @@
 > [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) >
 > [beemo](https://github.com/beemojs/beemo) preset
 
-Beemo's commit message guidelines and changelog structure.
+Beemo's commit message guidelines and changelog structure. _Now with more emojis!_
 
 ## Commit Message Format
 
-The commit message format consists of a **type**, optional **scope**, and a **message**:
+The commit message format consists of a **type**, optional **scope** in parens, and a required
+**message**:
 
 ```
 <type>: <message>
@@ -66,7 +67,7 @@ The message contains a succinct description of the change:
 
 - Use the imperative, present tense: "change" not "changed" nor "changes".
 - Capitalize first letter of message.
-- Trailing punctuation (period) is not required.
+- Trailing punctuation (period) is not required, but preferred.
 
 ## Example
 
