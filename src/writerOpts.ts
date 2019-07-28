@@ -8,13 +8,13 @@ import { WriterOptions, CommitGroupLabel, Context, Reference } from './types';
 
 type GroupMap<T> = { [K in CommitGroupLabel]: T };
 
-const groupEmojis: GroupMap<string> = GROUPS.reduce(
+const groupEmojis = GROUPS.reduce(
   (data, group) => ({
     ...data,
     [group.label]: group.emoji,
   }),
   {},
-) as any;
+) as GroupMap<string>;
 
 const sortWeights: GroupMap<number> = {
   Release: 4,
