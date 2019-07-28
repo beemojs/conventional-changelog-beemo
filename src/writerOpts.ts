@@ -23,6 +23,7 @@ const sortWeights: GroupMap<number> = {
   Fixes: 1,
   Security: 0,
   Styles: -1,
+  Types: -1,
   Docs: -2,
   Dependencies: -3,
   Misc: -3,

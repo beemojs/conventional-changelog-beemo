@@ -32,6 +32,7 @@ export type CommitType =
   | 'ci'
   | 'build'
   | 'test'
+  | 'types'
   | 'internal'
   | 'misc';
 
@@ -45,6 +46,7 @@ export type CommitGroupLabel =
   | 'Styles'
   | 'Security'
   | 'Reverts'
+  | 'Types'
   | 'Internals'
   | 'Misc';
 

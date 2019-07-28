@@ -27,7 +27,7 @@ Made a lot of changes
 exports[`conventional-changelog-beemo handles revert type 1`] = `
 "### 1.0.0 - 2019-02-26
 
-#### ⚙️ Reverts
+#### ↩️ Reverts
 
 - **[foo]** undo this ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
 `;
@@ -89,6 +89,10 @@ They are easier now!
 #### 🔑 Security
 
 - **[auth]** improved logic ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d)), closes [#3](https://github.com/beemojs/conventional-changelog-beemo/issues/3)
+
+#### ⚙️ Types
+
+- Removed any ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 
 #### 🎨 Styles
 
@@ -183,7 +187,7 @@ New build system.
 
 - **[compile]** avoid a bug ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 
-#### ⚙️ Reverts
+#### ↩️ Reverts
 
 - **[ngOptions]** bad commit ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 

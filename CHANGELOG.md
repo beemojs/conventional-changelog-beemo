@@ -1,3 +1,10 @@
+## 1.5.0 - 2019-07-27
+
+#### 🚀 Updates
+
+- Added a new commit prefix type, `types`, which can be used when updating a type system (TypeScript
+  or Flow). This is a patch version bump.
+
 ## 1.4.0 - 2019-07-07
 
 #### 🚀 Updates
