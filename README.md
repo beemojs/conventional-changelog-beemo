@@ -40,9 +40,10 @@ prefixing your commit message.
 - `fix` - Fixes existing functionality.
 - `deps` - Bumps dependencies.
 - `docs` - Updates documentation.
+- `revert` - Reverts previous or broken code.
 - `style` - Updates visual styles, like CSS.
 - `security` - Improves security.
-- `revert` - Reverts previous or broken code.
+- `types` - Updates type system related syntax (TS/Flow).
 - `misc` - Catch all for commits that don't align with other types.
 
 #### Skip
