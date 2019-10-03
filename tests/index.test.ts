@@ -33,6 +33,7 @@ describe('conventional-changelog-beemo', () => {
   };
 
   beforeEach(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (shell.config as any).resetForTesting();
     shell.cd(__dirname);
     shell.mkdir('tmp');
@@ -255,7 +256,7 @@ describe('conventional-changelog-beemo', () => {
           {
             ...commonConfig,
           },
-          (error: Error | null, result: any) => {
+          (error: Error | null, result: object) => {
             expect(error).toBeNull();
             expect(result).toEqual({
               level: 0,
@@ -277,7 +278,7 @@ describe('conventional-changelog-beemo', () => {
           {
             ...commonConfig,
           },
-          (error: Error | null, result: any) => {
+          (error: Error | null, result: object) => {
             expect(error).toBeNull();
             expect(result).toEqual({
               level: 1,
@@ -300,7 +301,7 @@ describe('conventional-changelog-beemo', () => {
             ...commonConfig,
             ignoreReverted: false,
           },
-          (error: Error | null, result: any) => {
+          (error: Error | null, result: object) => {
             expect(error).toBeNull();
             expect(result).toEqual({
               level: 2,
@@ -322,7 +323,7 @@ describe('conventional-changelog-beemo', () => {
           {
             ...commonConfig,
           },
-          (error: Error | null, result: any) => {
+          (error: Error | null, result: object) => {
             expect(error).toBeNull();
             expect(result).toEqual({
               level: null,
@@ -342,7 +343,7 @@ describe('conventional-changelog-beemo', () => {
         {
           ...commonConfig,
         },
-        (error: Error | null, result: any) => {
+        (error: Error | null, result: object) => {
           expect(error).toBeNull();
           expect(result).toEqual({
             level: null,

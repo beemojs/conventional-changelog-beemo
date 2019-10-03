@@ -1,3 +1,9 @@
+### 1.5.1 - 2019-10-02
+
+#### 📦 Dependencies
+
+- Updated all to latest.
+
 ## 1.5.0 - 2019-07-27
 
 #### 🚀 Updates
