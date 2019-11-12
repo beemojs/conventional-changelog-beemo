@@ -1,9 +1,5 @@
 {
   "name": "test-purposes",
   "version": "1.0.0",
-  "repository": "https://github.com/beemojs/conventional-changelog-beemo",
-  "funding": {
-    "type": "ko-fi",
-    "url": "https://ko-fi.com/milesjohnson"
-  }
+  "repository": "https://github.com/beemojs/conventional-changelog-beemo"
 }
