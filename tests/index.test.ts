@@ -1,4 +1,4 @@
-/* eslint-disable jest/expect-expect */
+/* eslint-disable jest/expect-expect, jest/no-test-callback */
 
 import path from 'path';
 import Stream from 'stream';

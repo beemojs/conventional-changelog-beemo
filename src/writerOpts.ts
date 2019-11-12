@@ -113,7 +113,7 @@ const options: Partial<WriterOptions> = {
     // Use shorthand hashes
     if (typeof commit.hash === 'string') {
       // eslint-disable-next-line no-magic-numbers
-      commit.hash = commit.hash.substring(0, 7);
+      commit.hash = commit.hash.slice(0, 7);
     }
 
     // Pre-generate links instead of doing it in handlebars
