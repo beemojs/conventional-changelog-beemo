@@ -13,6 +13,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - run: git checkout ${{ GITHUB_REF }}
       - run: yarn install --ignore-engines --frozen-lockfile
       - run: yarn run build
       - run: yarn test
