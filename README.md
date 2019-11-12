@@ -1,6 +1,6 @@
 # conventional-changelog-beemo
 
-[![Build Status](https://travis-ci.org/beemojs/conventional-changelog-beemo.svg?branch=master)](https://travis-ci.org/beemojs/conventional-changelog-beemo)
+[![Build Status](https://github.com/beemojs/conventional-changelog-beemo/workflows/Build/badge.svg)](https://github.com/beemojs/conventional-changelog-beemo/actions?query=branch%3Amaster)
 [![npm version](https://badge.fury.io/js/conventional-changelog-beemo.svg)](https://www.npmjs.com/package/conventional-changelog-beemo)
 [![npm deps](https://david-dm.org/beemojs/conventional-changelog-beemo.svg)](https://www.npmjs.com/package/conventional-changelog-beemo)
 
