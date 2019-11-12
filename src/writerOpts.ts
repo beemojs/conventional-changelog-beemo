@@ -135,9 +135,14 @@ const options: Partial<WriterOptions> = {
     if (context.host) {
       commit.message = commit.message.replace(
         /\B@([a-z0-9](?:-?[a-z0-9/]){0,38})/gu,
-        (_, username) => {
-          if (username.includes('/')) {
-            return `@${username}`;
+        (match, username, index) => {
+          if (
+            username.includes('/') ||
+            // Avoid when wrapped in backticks (inline code)
+            commit.message.charAt(index - 1) === '`' ||
+            commit.message.charAt(index + match.length + 1) === '`'
+          ) {
+            return match;
           }
 
           return `[@${username}](${context.host}/${username})`;

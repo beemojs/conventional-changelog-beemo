@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`conventional-changelog-beemo doesnt replace @username if wrapped in backticks 1`] = `
+"### 1.0.0 - 2019-02-26
+
+#### 📦 Dependencies
+
+- Updated \`@types\` packages. ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+`;
+
 exports[`conventional-changelog-beemo handles merge commits 1`] = `
 "### 1.0.0 - 2019-02-26
 

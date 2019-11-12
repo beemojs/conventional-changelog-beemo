@@ -1,5 +1,9 @@
 ### 1.5.2 - 2019-11-10
 
+#### 🐞 Fixes
+
+- Will not autolink `@username` tokens that are wrapped in backticks.
+
 #### 📦 Dependencies
 
 - Updated all to latest.

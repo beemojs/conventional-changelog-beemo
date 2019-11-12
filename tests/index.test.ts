@@ -4,27 +4,40 @@ import path from 'path';
 import Stream from 'stream';
 import conventionalChangelogCore from 'conventional-changelog-core';
 import conventionalRecommendedBump from 'conventional-recommended-bump';
-import gitDummyCommit from 'git-dummy-commit';
 import shell from 'shelljs';
 import { config } from '../src';
 
-describe('conventional-changelog-beemo', () => {
-  function captureStreamOutput(stream: Stream.Readable, done: jest.DoneCallback) {
-    let data = '';
+function gitDummyCommit(msg: string | string[], silent: boolean = true) {
+  const args: string[] = ['--allow-empty', '--no-gpg-sign'];
 
-    stream
-      .on('error', (error: Error) => {
-        done.fail(error);
-      })
-      .on('data', (chunk: string) => {
-        data += String(chunk);
-      })
-      .on('end', () => {
-        expect(data.trim()).toMatchSnapshot();
-        done();
-      });
+  if (Array.isArray(msg)) {
+    msg.forEach(m => {
+      args.push(`-m"${m}"`);
+    });
+  } else {
+    args.push(`-m"${msg}"`);
   }
 
+  shell.exec(`git commit ${args.join(' ')}`, { silent });
+}
+
+function captureStreamOutput(stream: Stream.Readable, done: jest.DoneCallback) {
+  let data = '';
+
+  stream
+    .on('error', (error: Error) => {
+      done.fail(error);
+    })
+    .on('data', (chunk: string) => {
+      data += String(chunk);
+    })
+    .on('end', () => {
+      expect(data.trim()).toMatchSnapshot();
+      done();
+    });
+}
+
+describe('conventional-changelog-beemo', () => {
   const commonConfig = {
     config,
     pkg: {
@@ -171,6 +184,17 @@ describe('conventional-changelog-beemo', () => {
 
   it('replaces @username with GitHub user URL', done => {
     gitDummyCommit(['feature(awesome): issue brought up by @bcoe! on Friday']);
+
+    captureStreamOutput(
+      conventionalChangelogCore({
+        ...commonConfig,
+      }),
+      done,
+    );
+  });
+
+  it('doesnt replace @username if wrapped in backticks', done => {
+    gitDummyCommit(['deps: Updated \\`@types\\` packages.']);
 
     captureStreamOutput(
       conventionalChangelogCore({
