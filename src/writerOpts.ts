@@ -50,9 +50,23 @@ function createLink(paths: string[], context: Context, reference: Partial<Refere
     url.push(context.repoUrl);
   }
 
-  url.push(...paths);
+  let base = url.join('/');
 
-  return url.join('/');
+  // If deep linking to a sub-folder (monorepo project, etc),
+  // extract the base URL if possible.
+  [
+    // github, gitlab
+    'tree',
+    'blob',
+    // bitbucket
+    'src',
+  ].forEach(browsePart => {
+    if (base.includes(`/${browsePart}/`)) {
+      [base] = base.split(`/${browsePart}/`);
+    }
+  });
+
+  return [base, ...paths].join('/');
 }
 
 const options: Partial<WriterOptions> = {

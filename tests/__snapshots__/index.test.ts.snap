@@ -40,6 +40,14 @@ exports[`conventional-changelog-beemo handles revert type 1`] = `
 - **[foo]** undo this ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
 `;
 
+exports[`conventional-changelog-beemo links commits/issues to deep repositories correctly 1`] = `
+"## 1.0.0 - 2019-02-26
+
+#### 🚀 Updates
+
+- supports sub-package links ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d)), closes [#10](https://github.com/beemojs/conventional-changelog-beemo/issues/10)"
+`;
+
 exports[`conventional-changelog-beemo only replaces with link to user if it is an username 1`] = `
 "### 1.0.0 - 2019-02-26
 

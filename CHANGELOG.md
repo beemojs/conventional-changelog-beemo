@@ -1,8 +1,16 @@
-### 1.5.2 - 2019-11-10
+### 1.5.3 - 2019-11-12
+
+#### 🐞 Fixes
+
+- Actually support deep links (monorepos, etc) correctly.
+
+### 1.5.2 - 2019-11-11
 
 #### 🐞 Fixes
 
 - Will not autolink `@username` tokens that are wrapped in backticks.
+- Will properly link commits and issues within monorepos, or projects that define invalid
+  `package.json` repository URLs.
 
 #### 📦 Dependencies
 

@@ -216,6 +216,20 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
+  it('links commits/issues to deep repositories correctly', done => {
+    gitDummyCommit(['update: supports sub-package links', ' closes #10']);
+
+    captureStreamOutput(
+      conventionalChangelogCore({
+        ...commonConfig,
+        pkg: {
+          path: path.join(__dirname, 'package-monorepo.json'),
+        },
+      }),
+      done,
+    );
+  });
+
   it('supports non public GitHub repository locations', done => {
     gitDummyCommit(['update(events): implementing #5 by @dlmr', ' closes #10']);
     gitDummyCommit('new: why this work?');
