@@ -8,7 +8,7 @@ import shell from 'shelljs';
 import { config } from '../src';
 
 function gitDummyCommit(msg: string | string[], silent: boolean = true) {
-  const args: string[] = [];
+  const args: string[] = ['--allow-empty', '--no-gpg-sign'];
 
   if (Array.isArray(msg)) {
     msg.forEach(m => {
@@ -18,7 +18,7 @@ function gitDummyCommit(msg: string | string[], silent: boolean = true) {
     args.push(`-m"${msg}"`);
   }
 
-  shell.exec(`git commit --allow-empty --no-gpg-sign ${args.join('')}`, { silent });
+  shell.exec(`git commit ${args.join(' ')}`, { silent });
 }
 
 function captureStreamOutput(stream: Stream.Readable, done: jest.DoneCallback) {

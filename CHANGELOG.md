@@ -10,10 +10,6 @@
 
 - Updated all to latest.
 
-#### 🛠 Internals
-
-- Migrated to GitHub actions.
-
 ### 1.5.1 - 2019-10-02
 
 #### 📦 Dependencies
