@@ -3,8 +3,6 @@
 #### 🐞 Fixes
 
 - Will not autolink `@username` tokens that are wrapped in backticks.
-- Will properly link commits and issues within monorepos, or projects that define invalid
-  `package.json` repository URLs.
 
 #### 📦 Dependencies
 

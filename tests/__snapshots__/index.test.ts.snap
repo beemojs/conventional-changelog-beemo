@@ -210,5 +210,5 @@ exports[`conventional-changelog-beemo works with unknown host 1`] = `
 
 #### 📘 Docs
 
-- add manual ([a1b2c3d](commits/a1b2c3d))"
+- add manual ([a1b2c3d](http://unknown/commits/a1b2c3d))"
 `;

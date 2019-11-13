@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import getTypeGroup from './getTypeGroup';
 import { GROUPS } from './constants';
-import { WriterOptions, CommitGroupLabel, Context } from './types';
+import { WriterOptions, CommitGroupLabel, Context, Reference } from './types';
 
 type GroupMap<T> = { [K in CommitGroupLabel]: T };
 
@@ -31,8 +31,28 @@ const sortWeights: GroupMap<number> = {
   Internals: -5,
 };
 
-function createLink(paths: string[], context: Context): string {
-  return [context.host, context.owner, context.repository, ...paths].filter(Boolean).join('/');
+function createLink(paths: string[], context: Context, reference: Partial<Reference> = {}): string {
+  const owner = reference.owner || context.owner;
+  const repository = reference.repository || context.repository;
+  const url: string[] = [];
+
+  if (repository) {
+    if (context.host) {
+      url.push(context.host);
+    }
+
+    if (owner) {
+      url.push(owner);
+    }
+
+    url.push(repository);
+  } else {
+    url.push(context.repoUrl);
+  }
+
+  url.push(...paths);
+
+  return url.join('/');
 }
 
 const options: Partial<WriterOptions> = {
@@ -100,7 +120,7 @@ const options: Partial<WriterOptions> = {
     commit.hashLink = createLink([context.commit, commit.hash], context);
 
     commit.references.forEach(reference => {
-      reference.issueLink = createLink([context.issue, reference.issue], context);
+      reference.issueLink = createLink([context.issue, reference.issue], context, reference);
 
       let source = `${reference.repository || ''}#${reference.issue}`;
 
