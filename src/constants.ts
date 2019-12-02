@@ -1,6 +1,6 @@
 import { Group } from './types';
 
-export const COMMIT_FORMAT_PREFIX = /^(break|breaking|build|ci|deps|docs|feature|fix|internal|misc|new|patch|release|revert|security|style|test|types|update)(?:\(([a-zA-Z0-9\-., ]+)\))?:/u;
+export const COMMIT_FORMAT_PREFIX = /^(break|breaking|build|ci|deps|docs|feature|fix|internal|misc|new|patch|release|revert|security|style|test|tests|type|types|update)(?:\(([a-zA-Z0-9\-., ]+)\))?:/u;
 
 export const GROUPS: Group[] = [
   {
@@ -29,7 +29,7 @@ export const GROUPS: Group[] = [
   {
     emoji: '🛠',
     label: 'Internals',
-    types: ['ci', 'build', 'test', 'internal'],
+    types: ['ci', 'build', 'test', 'tests', 'internal'],
   },
   {
     bump: 'patch',
@@ -65,7 +65,7 @@ export const GROUPS: Group[] = [
     bump: 'patch',
     emoji: '⚙️',
     label: 'Types',
-    types: ['types'],
+    types: ['type', 'types'],
   },
   {
     bump: 'minor',

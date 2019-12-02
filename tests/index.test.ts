@@ -96,6 +96,8 @@ describe('conventional-changelog-beemo', () => {
     gitDummyCommit(['update(ngOptions): make it faster', 'closes #1, #2']);
     gitDummyCommit('revert(ngOptions): bad commit');
     gitDummyCommit('fix(*): oops');
+    gitDummyCommit('type: Added unknown');
+    gitDummyCommit('tests: Added before hooks');
 
     captureStreamOutput(
       conventionalChangelogCore({
@@ -329,7 +331,7 @@ describe('conventional-changelog-beemo', () => {
       });
     });
 
-    ['fix', 'deps', 'style', 'security', 'revert', 'misc', 'types'].forEach(patch => {
+    ['fix', 'deps', 'style', 'security', 'revert', 'misc', 'type', 'types'].forEach(patch => {
       it(`bumps patch version for ${patch}`, done => {
         gitDummyCommit(`${patch}: new stuff`);
         gitDummyCommit(`${patch}(todo): with scope`);
@@ -352,7 +354,7 @@ describe('conventional-changelog-beemo', () => {
       });
     });
 
-    ['docs', 'ci', 'build', 'test', 'internal'].forEach(minor => {
+    ['docs', 'ci', 'build', 'test', 'tests', 'internal'].forEach(minor => {
       it(`doesnt bump version for ${minor}`, done => {
         gitDummyCommit(`${minor}: new stuff`);
         gitDummyCommit(`${minor}(todo): with scope`);

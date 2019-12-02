@@ -42,14 +42,14 @@ prefixing your commit message.
 - `revert` - Reverts previous or broken code.
 - `style` - Updates visual styles, like CSS.
 - `security` - Improves security.
-- `types` - Updates type system related syntax (TS/Flow).
+- `type`, `types` - Updates type system related syntax (TS/Flow).
 - `misc` - Catch all for commits that don't align with other types.
 
 #### Skip
 
 - `ci` - Changes to the CI pipeline.
 - `build` - Changes to the build system.
-- `test` - Changes to tests or the testing framework.
+- `test`, `tests` - Changes to tests or the testing framework.
 - `internal` - Internal changes not critical for the consumer.
 
 ### Scope

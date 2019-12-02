@@ -32,6 +32,8 @@ export type CommitType =
   | 'ci'
   | 'build'
   | 'test'
+  | 'tests'
+  | 'type'
   | 'types'
   | 'internal'
   | 'misc';
