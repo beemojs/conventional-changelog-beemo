@@ -16,6 +16,7 @@
   "author": "Miles Johnson",
   "license": "MIT",
   "scripts": {
+    "prepare": "beemo create-config --silent",
     "build": "beemo typescript",
     "coverage": "yarn run jest --coverage",
     "eslint": "beemo eslint",
@@ -29,11 +30,11 @@
     "posttest": "yarn run eslint"
   },
   "devDependencies": {
-    "@milesj/build-tools": "^0.59.2",
-    "@types/node": "^12.12.7",
+    "@milesj/build-tools": "^0.60.4",
+    "@types/node": "^12.12.14",
     "@types/shelljs": "^0.8.6",
-    "conventional-changelog-core": "^4.1.0",
-    "conventional-recommended-bump": "^6.0.4",
+    "conventional-changelog-core": "^4.1.1",
+    "conventional-recommended-bump": "^6.0.5",
     "shelljs": "^0.8.3"
   },
   "beemo": {
