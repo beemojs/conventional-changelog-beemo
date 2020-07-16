@@ -22,7 +22,7 @@
     "lint": "beemo eslint",
     "jest": "beemo jest -i",
     "prettier": "beemo prettier",
-    "release": "npx np --yolo --no-yarn",
+    "release": "npx np --yolo",
     "type": "beemo typescript --noEmit",
     "prerelease": "yarn test && yarn run build",
     "pretest": "yarn run type",
