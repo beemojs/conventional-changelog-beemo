@@ -30,12 +30,12 @@
     "posttest": "yarn run eslint"
   },
   "devDependencies": {
-    "@milesj/build-tools": "^0.60.4",
-    "@types/node": "^12.12.14",
-    "@types/shelljs": "^0.8.6",
-    "conventional-changelog-core": "^4.1.1",
-    "conventional-recommended-bump": "^6.0.5",
-    "shelljs": "^0.8.3"
+    "@milesj/build-tools": "^2.9.0",
+    "@types/node": "^14.0.23",
+    "@types/shelljs": "^0.8.8",
+    "conventional-changelog-core": "^4.1.7",
+    "conventional-recommended-bump": "^6.0.9",
+    "shelljs": "^0.8.4"
   },
   "beemo": {
     "module": "@milesj/build-tools",
