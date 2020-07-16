@@ -355,7 +355,7 @@ describe('conventional-changelog-beemo', () => {
       },
     );
 
-    ['docs', 'ci', 'build', 'test', 'tests', 'internal'].forEach(minor => {
+    ['docs', 'ci', 'cd', 'build', 'test', 'tests', 'internal'].forEach(minor => {
       it(`doesnt bump version for ${minor}`, done => {
         gitDummyCommit(`${minor}: new stuff`);
         gitDummyCommit(`${minor}(todo): with scope`);

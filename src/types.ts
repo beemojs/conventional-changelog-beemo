@@ -31,6 +31,7 @@ export type CommitType =
   | 'security'
   | 'revert'
   | 'ci'
+  | 'cd'
   | 'build'
   | 'test'
   | 'tests'

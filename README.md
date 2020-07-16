@@ -47,7 +47,7 @@ prefixing your commit message.
 
 #### Skip
 
-- `ci` - Changes to the CI pipeline.
+- `ci`, `cd` - Changes to the CI/CD pipeline.
 - `build` - Changes to the build system.
 - `test`, `tests` - Changes to tests or the testing framework.
 - `internal` - Internal changes not critical for the consumer.
@@ -67,7 +67,7 @@ The message contains a succinct description of the change:
 
 - Use the imperative, present tense: "change" not "changed" nor "changes".
 - Capitalize first letter of message.
-- Trailing punctuation (period) is not required, but preferred.
+- Trailing punctuation (period) is not required, but is subjective.
 
 ## Example
 
