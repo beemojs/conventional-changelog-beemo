@@ -148,6 +148,7 @@ const options: Partial<WriterOptions> = {
     // Link users
     if (context.host) {
       commit.message = commit.message.replace(
+        // eslint-disable-next-line security/detect-unsafe-regex
         /\B@([a-z0-9](?:-?[a-z0-9/]){0,38})/gu,
         (match, username, index) => {
           if (

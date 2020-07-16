@@ -1,5 +1,6 @@
 import { Group } from './types';
 
+// eslint-disable-next-line security/detect-unsafe-regex
 export const COMMIT_FORMAT_PREFIX = /^(break|breaking|build|ci|deps|docs|feature|fix|internal|misc|new|patch|release|revert|security|style|test|tests|type|types|update)(?:\(([a-zA-Z0-9\-., ]+)\))?:/u;
 
 export const GROUPS: Group[] = [

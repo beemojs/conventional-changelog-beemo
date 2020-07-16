@@ -19,7 +19,7 @@
     "prepare": "beemo create-config --silent",
     "build": "beemo typescript",
     "coverage": "yarn run jest --coverage",
-    "eslint": "beemo eslint",
+    "lint": "beemo eslint",
     "jest": "beemo jest -i",
     "prettier": "beemo prettier",
     "release": "npx np --yolo --no-yarn",
@@ -27,7 +27,7 @@
     "prerelease": "yarn test && yarn run build",
     "pretest": "yarn run type",
     "test": "yarn run jest",
-    "posttest": "yarn run eslint"
+    "posttest": "yarn run lint"
   },
   "devDependencies": {
     "@milesj/build-tools": "^2.9.0",

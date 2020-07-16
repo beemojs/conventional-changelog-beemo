@@ -46,7 +46,6 @@ describe('conventional-changelog-beemo', () => {
   };
 
   beforeEach(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (shell.config as any).resetForTesting();
     shell.cd(__dirname);
     shell.mkdir('tmp');

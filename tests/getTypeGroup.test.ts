@@ -12,7 +12,7 @@ describe('getTypeGroup()', () => {
 
   it('errors for invalid type', () => {
     expect(() => {
-      // @ts-ignore Allow invalid type
+      // @ts-expect-error
       getTypeGroup('unknown');
     }).toThrowErrorMatchingSnapshot();
   });
