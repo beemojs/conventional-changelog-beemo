@@ -27,6 +27,7 @@ export type CommitType =
   | 'docs'
   | 'patch'
   | 'style'
+  | 'styles'
   | 'security'
   | 'revert'
   | 'ci'

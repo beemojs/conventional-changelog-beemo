@@ -37,10 +37,10 @@ prefixing your commit message.
 #### Patch
 
 - `fix` - Fixes existing functionality.
-- `deps` - Bumps dependencies.
-- `docs` - Updates documentation.
+- `deps` - Bumps, adds, or updates dependencies.
+- `docs` - Updates documentation, changelogs, or readmes.
 - `revert` - Reverts previous or broken code.
-- `style` - Updates visual styles, like CSS.
+- `style`, `styles` - Updates visual styles, like CSS, or code formatting.
 - `security` - Improves security.
 - `type`, `types` - Updates type system related syntax (TS/Flow).
 - `misc` - Catch all for commits that don't align with other types.
