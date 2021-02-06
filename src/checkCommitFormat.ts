@@ -3,7 +3,7 @@ import { CommitType } from './types';
 
 export default function checkCommitFormat(
   commit: string,
-): null | { scope: string; type: CommitType } {
+): { scope: string; type: CommitType } | null {
   const match = commit.match(COMMIT_FORMAT_PREFIX);
 
   if (!match) {

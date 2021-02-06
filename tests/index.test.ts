@@ -1,4 +1,4 @@
-/* eslint-disable jest/expect-expect, jest/no-test-callback */
+/* eslint-disable jest/expect-expect, jest/no-done-callback */
 
 import path from 'path';
 import Stream from 'stream';
@@ -7,11 +7,11 @@ import conventionalRecommendedBump from 'conventional-recommended-bump';
 import shell from 'shelljs';
 import { config } from '../src';
 
-function gitDummyCommit(msg: string | string[], silent: boolean = true) {
+function gitDummyCommit(msg: string[] | string, silent: boolean = true) {
   const args: string[] = ['--allow-empty', '--no-gpg-sign'];
 
   if (Array.isArray(msg)) {
-    msg.forEach(m => {
+    msg.forEach((m) => {
       args.push(`-m"${m}"`);
     });
   } else {
@@ -59,7 +59,7 @@ describe('conventional-changelog-beemo', () => {
     shell.rm('-rf', 'tmp');
   });
 
-  it('supports all types at once', done => {
+  it('supports all types at once', (done) => {
     gitDummyCommit(['release: New major!', 'Note: New build system.']);
     gitDummyCommit(['break: Forms have changed', 'Note: They are easier now!']);
     gitDummyCommit(['new: amazing new module', 'Not backward compatible.']);
@@ -87,7 +87,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('works if there is no semver tag', done => {
+  it('works if there is no semver tag', (done) => {
     gitDummyCommit(['build: first build setup', 'Note: New build system.']);
     gitDummyCommit(['ci(travis): add TravisCI pipeline', 'Continuously integrated.']);
     gitDummyCommit(['new: amazing new module', 'Not backward compatible.']);
@@ -106,7 +106,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('works if there is a semver tag', done => {
+  it('works if there is a semver tag', (done) => {
     shell.exec('git tag v1.0.0');
     gitDummyCommit('update: some more features');
 
@@ -119,7 +119,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('works with unknown host', done => {
+  it('works with unknown host', (done) => {
     gitDummyCommit('docs: add manual');
 
     captureStreamOutput(
@@ -133,7 +133,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('uses h1 for major versions', done => {
+  it('uses h1 for major versions', (done) => {
     gitDummyCommit('break: new shit');
     gitDummyCommit('release: new stuff');
     gitDummyCommit('fix: just a patch');
@@ -146,7 +146,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('uses h2 for minor versions', done => {
+  it('uses h2 for minor versions', (done) => {
     gitDummyCommit('new: new shit');
     gitDummyCommit('update: new stuff');
     gitDummyCommit('feature(modal): better modals');
@@ -160,7 +160,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('uses h3 for patch versions', done => {
+  it('uses h3 for patch versions', (done) => {
     gitDummyCommit('docs: add a manual');
     gitDummyCommit('patch: just a patch');
 
@@ -172,7 +172,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('replaces #[0-9]+ with issue URL', done => {
+  it('replaces #[0-9]+ with issue URL', (done) => {
     gitDummyCommit(['new(awesome): fix #88']);
 
     captureStreamOutput(
@@ -183,7 +183,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('replaces @username with GitHub user URL', done => {
+  it('replaces @username with GitHub user URL', (done) => {
     gitDummyCommit(['feature(awesome): issue brought up by @bcoe! on Friday']);
 
     captureStreamOutput(
@@ -194,7 +194,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('doesnt replace @username if wrapped in backticks', done => {
+  it('doesnt replace @username if wrapped in backticks', (done) => {
     gitDummyCommit(['deps: Updated \\`@types\\` packages.']);
 
     captureStreamOutput(
@@ -205,7 +205,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('handles multiple notes', done => {
+  it('handles multiple notes', (done) => {
     gitDummyCommit(['release: Initial release', 'Note: Made a lot of changes']);
     gitDummyCommit(['fix(button): Made button changes', 'Note: Button is more buttony']);
 
@@ -217,7 +217,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('links commits/issues to deep repositories correctly', done => {
+  it('links commits/issues to deep repositories correctly', (done) => {
     gitDummyCommit(['update: supports sub-package links', ' closes #10']);
 
     captureStreamOutput(
@@ -231,7 +231,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('supports non public GitHub repository locations', done => {
+  it('supports non public GitHub repository locations', (done) => {
     gitDummyCommit(['update(events): implementing #5 by @dlmr', ' closes #10']);
     gitDummyCommit('new: why this work?');
 
@@ -246,7 +246,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('only replaces with link to user if it is an username', done => {
+  it('only replaces with link to user if it is an username', (done) => {
     gitDummyCommit(['fix: use npm@5 (@username)']);
     gitDummyCommit([
       'build(deps): bump @dummy/package from 7.1.2 to 8.0.0',
@@ -261,7 +261,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('handles merge commits', done => {
+  it('handles merge commits', (done) => {
     gitDummyCommit(['fix: use yarn']);
     gitDummyCommit('Merge pull request #29 from owner/repo');
 
@@ -273,7 +273,7 @@ describe('conventional-changelog-beemo', () => {
     );
   });
 
-  it('handles revert type', done => {
+  it('handles revert type', (done) => {
     gitDummyCommit('revert(foo): undo this');
     gitDummyCommit('Revert this is the PR title');
 
@@ -286,8 +286,8 @@ describe('conventional-changelog-beemo', () => {
   });
 
   describe('recommended bump', () => {
-    ['break', 'breaking', 'release'].forEach(major => {
-      it(`bumps major version for ${major}`, done => {
+    ['break', 'breaking', 'release'].forEach((major) => {
+      it(`bumps major version for ${major}`, (done) => {
         gitDummyCommit(`${major}: new stuff`);
         gitDummyCommit(`${major}(todo): with scope`);
 
@@ -308,8 +308,8 @@ describe('conventional-changelog-beemo', () => {
       });
     });
 
-    ['new', 'update', 'feature'].forEach(minor => {
-      it(`bumps minor version for ${minor}`, done => {
+    ['new', 'update', 'feature'].forEach((minor) => {
+      it(`bumps minor version for ${minor}`, (done) => {
         gitDummyCommit(`${minor}: new stuff`);
         gitDummyCommit(`${minor}(todo): with scope`);
 
@@ -331,8 +331,8 @@ describe('conventional-changelog-beemo', () => {
     });
 
     ['fix', 'deps', 'style', 'styles', 'security', 'revert', 'misc', 'type', 'types'].forEach(
-      patch => {
-        it(`bumps patch version for ${patch}`, done => {
+      (patch) => {
+        it(`bumps patch version for ${patch}`, (done) => {
           gitDummyCommit(`${patch}: new stuff`);
           gitDummyCommit(`${patch}(todo): with scope`);
 
@@ -355,8 +355,8 @@ describe('conventional-changelog-beemo', () => {
       },
     );
 
-    ['docs', 'ci', 'cd', 'build', 'test', 'tests', 'internal'].forEach(minor => {
-      it(`doesnt bump version for ${minor}`, done => {
+    ['docs', 'ci', 'cd', 'build', 'test', 'tests', 'internal'].forEach((minor) => {
+      it(`doesnt bump version for ${minor}`, (done) => {
         gitDummyCommit(`${minor}: new stuff`);
         gitDummyCommit(`${minor}(todo): with scope`);
 
@@ -376,7 +376,7 @@ describe('conventional-changelog-beemo', () => {
       });
     });
 
-    it('does nothing when no type exist', done => {
+    it('does nothing when no type exist', (done) => {
       gitDummyCommit('new stuff');
       gitDummyCommit('commit without a type');
 
