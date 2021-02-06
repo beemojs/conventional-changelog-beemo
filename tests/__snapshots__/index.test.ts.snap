@@ -106,21 +106,25 @@ They are easier now!
 
 - **[auth]** improved logic ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d)), closes [#3](https://github.com/beemojs/conventional-changelog-beemo/issues/3)
 
-#### ⚙️ Types
+#### ⚡️ Performance
 
-- Removed any ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- Speeeeed ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 
 #### 🎨 Styles
 
 - **[button]** polished rounded corners ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 
-#### 📘 Docs
+#### ⚙️ Types
 
-- added getting started ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- Removed any ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 
 #### 📦 Dependencies
 
 - **[babel,jest]** Bumped to latest ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### 📘 Docs
+
+- added getting started ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 
 #### 🛠 Internals
 
@@ -202,6 +206,10 @@ New build system.
 #### 🐞 Fixes
 
 - **[compile]** avoid a bug ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+
+#### ⚡️ Performance
+
+- Speeeeed ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 
 #### ⚙️ Types
 

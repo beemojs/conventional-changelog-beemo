@@ -78,6 +78,7 @@ describe('conventional-changelog-beemo', () => {
     gitDummyCommit('deps(babel,jest): Bumped to latest');
     gitDummyCommit(['patch(router): Fix params']);
     gitDummyCommit('types: Removed any');
+    gitDummyCommit('perf: Speeeeed');
 
     captureStreamOutput(
       conventionalChangelogCore({
@@ -97,6 +98,7 @@ describe('conventional-changelog-beemo', () => {
     gitDummyCommit('fix(*): oops');
     gitDummyCommit('type: Added unknown');
     gitDummyCommit('tests: Added before hooks');
+    gitDummyCommit('perf: Speeeeed');
 
     captureStreamOutput(
       conventionalChangelogCore({
@@ -330,30 +332,39 @@ describe('conventional-changelog-beemo', () => {
       });
     });
 
-    ['fix', 'deps', 'style', 'styles', 'security', 'revert', 'misc', 'type', 'types'].forEach(
-      (patch) => {
-        it(`bumps patch version for ${patch}`, (done) => {
-          gitDummyCommit(`${patch}: new stuff`);
-          gitDummyCommit(`${patch}(todo): with scope`);
+    [
+      'fix',
+      'deps',
+      'style',
+      'styles',
+      'security',
+      'revert',
+      'misc',
+      'type',
+      'types',
+      'perf',
+    ].forEach((patch) => {
+      it(`bumps patch version for ${patch}`, (done) => {
+        gitDummyCommit(`${patch}: new stuff`);
+        gitDummyCommit(`${patch}(todo): with scope`);
 
-          conventionalRecommendedBump(
-            {
-              ...commonConfig,
-              ignoreReverted: false,
-            },
-            (error: Error | null, result: object) => {
-              expect(error).toBeNull();
-              expect(result).toEqual({
-                level: 2,
-                reason: 'There are 0 breaking changes and 0 new features',
-                releaseType: 'patch',
-              });
-              done();
-            },
-          );
-        });
-      },
-    );
+        conventionalRecommendedBump(
+          {
+            ...commonConfig,
+            ignoreReverted: false,
+          },
+          (error: Error | null, result: object) => {
+            expect(error).toBeNull();
+            expect(result).toEqual({
+              level: 2,
+              reason: 'There are 0 breaking changes and 0 new features',
+              releaseType: 'patch',
+            });
+            done();
+          },
+        );
+      });
+    });
 
     ['docs', 'ci', 'cd', 'build', 'test', 'tests', 'internal'].forEach((minor) => {
       it(`doesnt bump version for ${minor}`, (done) => {

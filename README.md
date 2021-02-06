@@ -32,13 +32,14 @@ prefixing your commit message.
 
 - `new` - Introduces a new feature.
 - `update` - Updates an existing feature.
-- `feature` - Both a new and update.
+- `feature` - A large feature that consist of multiple types of changes.
 
 #### Patch
 
 - `fix` - Fixes existing functionality.
 - `deps` - Bumps, adds, or updates dependencies.
 - `docs` - Updates documentation, changelogs, or readmes.
+- `perf` - Performance improvements.
 - `revert` - Reverts previous or broken code.
 - `style`, `styles` - Updates visual styles, like CSS, or code formatting.
 - `security` - Improves security.

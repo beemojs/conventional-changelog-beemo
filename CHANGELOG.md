@@ -1,3 +1,14 @@
+## 1.6.0 - 2021-02-05
+
+#### 🚀 Updates
+
+- Added a new commit prefix type, `perf`, which can be used for performance improvements. This is a
+  patch version bump.
+
+#### 📦 Dependencies
+
+- Updated all to latest.
+
 ### 1.5.3 - 2019-11-12
 
 #### 🐞 Fixes
