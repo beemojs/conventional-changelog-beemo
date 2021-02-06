@@ -4,8 +4,8 @@
  */
 
 import checkCommitFormat from './checkCommitFormat';
-import getTypeGroup from './getTypeGroup';
 import conventionalChangelog from './conventionalChangelog';
+import getTypeGroup from './getTypeGroup';
 import parserOpts from './parserOpts';
 import recommendedBumpOpts from './recommendedBumpOpts';
 import writerOpts from './writerOpts';

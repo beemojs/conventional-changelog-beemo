@@ -2,9 +2,9 @@
 
 import fs from 'fs';
 import path from 'path';
-import getTypeGroup from './getTypeGroup';
 import { GROUPS } from './constants';
-import { WriterOptions, CommitGroupLabel, Context, Reference } from './types';
+import getTypeGroup from './getTypeGroup';
+import { CommitGroupLabel, Context, Reference, WriterOptions } from './types';
 
 type GroupMap<T> = { [K in CommitGroupLabel]: T };
 
@@ -60,7 +60,7 @@ function createLink(paths: string[], context: Context, reference: Partial<Refere
     'blob',
     // bitbucket
     'src',
-  ].forEach(browsePart => {
+  ].forEach((browsePart) => {
     if (base.includes(`/${browsePart}/`)) {
       [base] = base.split(`/${browsePart}/`);
     }
@@ -133,7 +133,7 @@ const options: Partial<WriterOptions> = {
     // Pre-generate links instead of doing it in handlebars
     commit.hashLink = createLink([context.commit, commit.hash], context);
 
-    commit.references.forEach(reference => {
+    commit.references.forEach((reference) => {
       reference.issueLink = createLink([context.issue, reference.issue], context, reference);
 
       let source = `${reference.repository || ''}#${reference.issue}`;

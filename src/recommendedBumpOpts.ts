@@ -1,6 +1,6 @@
-import parserOpts from './parserOpts';
 import getTypeGroup from './getTypeGroup';
-import { BumpOptions, SemverLevel, Group } from './types';
+import parserOpts from './parserOpts';
+import { BumpOptions, Group, SemverLevel } from './types';
 
 const options: BumpOptions = {
   parserOpts,
@@ -10,7 +10,7 @@ const options: BumpOptions = {
     let breakings = 0;
     let features = 0;
 
-    commits.forEach(commit => {
+    commits.forEach((commit) => {
       let group: Group;
 
       try {
