@@ -21,14 +21,11 @@
     "check": "yarn run type && yarn run test && yarn run lint",
     "coverage": "yarn run jest --coverage",
     "lint": "beemo eslint",
-    "jest": "beemo jest -i",
+    "test": "beemo jest -i",
     "format": "beemo prettier",
     "release": "npx np --yolo",
     "type": "beemo typescript --noEmit",
-    "prerelease": "yarn test && yarn run build",
-    "pretest": "yarn run type",
-    "test": "yarn run jest",
-    "posttest": "yarn run lint"
+    "prerelease": "yarn run build && yarn run check"
   },
   "devDependencies": {
     "@beemo/dev": "^1.7.8",

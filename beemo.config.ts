@@ -1,7 +1,8 @@
+// eslint-disable-next-line import/no-default-export
 export default {
-  module: '@beemo/dev',
-  drivers: ['babel', 'eslint', 'jest', 'prettier', 'typescript'],
-  settings: {
-    node: true,
-  },
+	drivers: ['babel', 'eslint', 'jest', 'prettier', 'typescript'],
+	module: '@beemo/dev',
+	settings: {
+		node: true,
+	},
 };
