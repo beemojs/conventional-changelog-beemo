@@ -32,7 +32,7 @@
     "lint": "beemo eslint",
     "test": "beemo jest -i",
     "format": "beemo prettier",
-    "release": "yarn run pack && yarn run check && npx np --yolo",
+    "release": "yarn run pack && yarn run check && npx np --yolo --no-yarn",
     "type": "beemo typescript --noEmit"
   },
   "devDependencies": {
