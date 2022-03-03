@@ -34,14 +34,15 @@ export const recommendedBumpOpts: BumpOptions = {
 
 					break;
 				}
-				case 'patch':
-				default: {
+				case 'patch': {
 					if (level === null) {
 						level = 2;
 					}
 
 					break;
 				}
+				default:
+					break;
 			}
 		});
 
