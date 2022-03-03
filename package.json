@@ -28,6 +28,8 @@
     "prerelease": "yarn run build && yarn run check"
   },
   "devDependencies": {
+    "@beemo/cli": "^2.0.6",
+    "@beemo/core": "^2.1.4",
     "@beemo/dev": "^1.7.8",
     "@types/node": "^14.14.25",
     "@types/shelljs": "^0.8.8",
