@@ -44,7 +44,7 @@ prefixing your commit message.
 - `style`, `styles` - Updates visual styles, like CSS, or code formatting.
 - `security` - Improves security.
 - `type`, `types` - Updates type system related syntax (TS/Flow).
-- `misc` - Catch all for commits that don't align with other types.
+- `chore`, `misc` - Catch all for commits that don't align with other types.
 
 #### Skip
 

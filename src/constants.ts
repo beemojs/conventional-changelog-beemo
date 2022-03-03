@@ -2,7 +2,7 @@ import { Group } from './types';
 
 export const COMMIT_FORMAT_PREFIX =
 	// eslint-disable-next-line unicorn/no-unsafe-regex
-	/^(break|breaking|build|ci|cd|deps|docs|feature|fix|internal|misc|new|patch|perf|release|revert|security|style|styles|test|tests|type|types|update)(?:\(([a-zA-Z0-9\-., ]+)\))?:/u;
+	/^(break|breaking|build|chore|ci|cd|deps|docs|feature|fix|internal|misc|new|patch|perf|release|revert|security|style|styles|test|tests|type|types|update)(?:\(([a-zA-Z0-9\-., ]+)\))?:/u;
 
 export const GROUPS: Group[] = [
 	{
@@ -37,7 +37,7 @@ export const GROUPS: Group[] = [
 		bump: 'patch',
 		emoji: '📋',
 		label: 'Misc',
-		types: ['misc'],
+		types: ['chore', 'misc'],
 	},
 	{
 		bump: 'major',

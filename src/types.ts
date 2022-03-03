@@ -20,6 +20,7 @@ export type CommitType =
 	| 'breaking'
 	| 'build'
 	| 'cd'
+	| 'chore'
 	| 'ci'
 	| 'deps'
 	| 'docs'
