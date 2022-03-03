@@ -10,45 +10,30 @@
   "main": "./index.js",
   "types": "./lib/index.d.ts",
   "engines": {
-    "node": ">=10.10.0"
+    "node": ">=12.20.0"
   },
   "repository": "https://github.com/beemojs/conventional-changelog-beemo",
   "author": "Miles Johnson",
   "license": "MIT",
   "scripts": {
-    "prepare": "beemo create-config --silent",
+    "prepare": "beemo create-config",
     "build": "beemo typescript",
+    "check": "yarn run type && yarn run test && yarn run lint",
     "coverage": "yarn run jest --coverage",
     "lint": "beemo eslint",
-    "jest": "beemo jest -i",
+    "test": "beemo jest -i",
     "format": "beemo prettier",
     "release": "npx np --yolo",
     "type": "beemo typescript --noEmit",
-    "prerelease": "yarn test && yarn run build",
-    "pretest": "yarn run type",
-    "test": "yarn run jest",
-    "posttest": "yarn run lint"
+    "prerelease": "yarn run build && yarn run check"
   },
   "devDependencies": {
-    "@milesj/build-tools": "^2.17.0",
+    "@beemo/dev": "^1.7.8",
     "@types/node": "^14.14.25",
     "@types/shelljs": "^0.8.8",
     "conventional-changelog-core": "^4.2.2",
     "conventional-recommended-bump": "^6.1.0",
     "shelljs": "^0.8.4"
-  },
-  "beemo": {
-    "module": "@milesj/build-tools",
-    "drivers": [
-      "babel",
-      "eslint",
-      "jest",
-      "prettier",
-      "typescript"
-    ],
-    "settings": {
-      "node": true
-    }
   },
   "funding": {
     "type": "ko-fi",

@@ -93,9 +93,9 @@ They are easier now!
 
 #### 🚀 Updates
 
+- amazing new module ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 - **[core]** settings refactor ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 - **[modal, button]** added accessibility ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d)), closes [#1](https://github.com/beemojs/conventional-changelog-beemo/issues/1) [#2](https://github.com/beemojs/conventional-changelog-beemo/issues/2)
-- amazing new module ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 
 #### 🐞 Fixes
 
@@ -128,10 +128,10 @@ They are easier now!
 
 #### 🛠 Internals
 
-- **[ts]** updated types ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
-- setup testing framework ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 - **[deps]** updated dev tools ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
-- **[travis]** fixed yaml config ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+- setup testing framework ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- **[travis]** fixed yaml config ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- **[ts]** updated types ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
 `;
 
 exports[`conventional-changelog-beemo supports non public GitHub repository locations 1`] = `
@@ -139,8 +139,8 @@ exports[`conventional-changelog-beemo supports non public GitHub repository loca
 
 #### 🚀 Updates
 
-- why this work? ([a1b2c3d](https://github.internal.example.com/conventional-changelog/internal/commit/a1b2c3d))
-- **[events]** implementing #5 by [@dlmr](https://github.internal.example.com/dlmr) ([a1b2c3d](https://github.internal.example.com/conventional-changelog/internal/commit/a1b2c3d)), closes [#5](https://github.internal.example.com/conventional-changelog/internal/issues/5) [#10](https://github.internal.example.com/conventional-changelog/internal/issues/10)"
+- **[events]** implementing #5 by [@dlmr](https://github.internal.example.com/dlmr) ([a1b2c3d](https://github.internal.example.com/conventional-changelog/internal/commit/a1b2c3d)), closes [#5](https://github.internal.example.com/conventional-changelog/internal/issues/5) [#10](https://github.internal.example.com/conventional-changelog/internal/issues/10)
+- why this work? ([a1b2c3d](https://github.internal.example.com/conventional-changelog/internal/commit/a1b2c3d))"
 `;
 
 exports[`conventional-changelog-beemo uses h1 for major versions 1`] = `
@@ -200,8 +200,8 @@ New build system.
 
 #### 🚀 Updates
 
-- **[ngOptions]** make it faster ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d)), closes [#1](https://github.com/beemojs/conventional-changelog-beemo/issues/1) [#2](https://github.com/beemojs/conventional-changelog-beemo/issues/2)
 - amazing new module ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- **[ngOptions]** make it faster ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d)), closes [#1](https://github.com/beemojs/conventional-changelog-beemo/issues/1) [#2](https://github.com/beemojs/conventional-changelog-beemo/issues/2)
 
 #### 🐞 Fixes
 
@@ -222,8 +222,8 @@ New build system.
 #### 🛠 Internals
 
 - Added before hooks ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
-- **[travis]** add TravisCI pipeline ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
-- first build setup ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+- first build setup ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- **[travis]** add TravisCI pipeline ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
 `;
 
 exports[`conventional-changelog-beemo works with unknown host 1`] = `
@@ -231,5 +231,5 @@ exports[`conventional-changelog-beemo works with unknown host 1`] = `
 
 #### 📘 Docs
 
-- add manual ([a1b2c3d](http://unknown/commits/a1b2c3d))"
+- add manual a1b2c3d"
 `;

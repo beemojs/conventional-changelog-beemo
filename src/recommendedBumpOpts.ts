@@ -1,44 +1,54 @@
-import getTypeGroup from './getTypeGroup';
-import parserOpts from './parserOpts';
+import { getTypeGroup } from './getTypeGroup';
+import { parserOpts } from './parserOpts';
 import { BumpOptions, Group, SemverLevel } from './types';
 
-const options: BumpOptions = {
-  parserOpts,
+export const recommendedBumpOpts: BumpOptions = {
+	parserOpts,
 
-  whatBump(commits) {
-    let level: SemverLevel = null;
-    let breakings = 0;
-    let features = 0;
+	whatBump(commits) {
+		let level: SemverLevel = null;
+		let breakings = 0;
+		let features = 0;
 
-    commits.forEach((commit) => {
-      let group: Group;
+		commits.forEach((commit) => {
+			let group: Group;
 
-      try {
-        group = getTypeGroup(commit.type);
-      } catch {
-        return;
-      }
+			try {
+				group = getTypeGroup(commit.type);
+			} catch {
+				return;
+			}
 
-      if (group.bump === 'major') {
-        breakings += 1;
-        level = 0;
-      } else if (group.bump === 'minor') {
-        features += 1;
-        if (level === null || level === 2) {
-          level = 1;
-        }
-      } else if (group.bump === 'patch') {
-        if (level === null) {
-          level = 2;
-        }
-      }
-    });
+			switch (group.bump) {
+				case 'major': {
+					breakings += 1;
+					level = 0;
 
-    return {
-      level,
-      reason: `There are ${breakings} breaking changes and ${features} new features`,
-    };
-  },
+					break;
+				}
+				case 'minor': {
+					features += 1;
+					if (level === null || level === 2) {
+						level = 1;
+					}
+
+					break;
+				}
+				case 'patch': {
+					if (level === null) {
+						level = 2;
+					}
+
+					break;
+				}
+				default:
+					break;
+			}
+		});
+
+		return {
+			level,
+			reason: `There are ${breakings} breaking changes and ${features} new features`,
+		};
+	},
 };
-
-export default options;
