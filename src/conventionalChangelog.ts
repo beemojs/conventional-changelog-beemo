@@ -1,4 +1,4 @@
-import parserOpts from './parserOpts';
-import writerOpts from './writerOpts';
+import { parserOpts } from './parserOpts';
+import { writerOpts } from './writerOpts';
 
-export default { parserOpts, writerOpts };
+export const conventionalChangelog = { parserOpts, writerOpts };
