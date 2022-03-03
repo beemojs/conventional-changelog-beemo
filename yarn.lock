@@ -3862,7 +3862,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-changelog-beemo@^2.1.0, conventional-changelog-beemo@workspace:.":
+"conventional-changelog-beemo@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "conventional-changelog-beemo@npm:2.1.0"
+  checksum: 76df24df558c41b71eaa539237bf12fa0341693949714d8d859b556184c7d3b872d924176769c7584e205ebc115b2ec9d738b4601fe436d1856b8569281c252f
+  languageName: node
+  linkType: hard
+
+"conventional-changelog-beemo@workspace:.":
   version: 0.0.0-use.local
   resolution: "conventional-changelog-beemo@workspace:."
   dependencies:
