@@ -7,17 +7,23 @@
     "beemo",
     "preset"
   ],
-  "main": "./index.js",
+  "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "engines": {
-    "node": ">=12.17.0"
+    "node": ">=12.17.0",
+    "npm": ">=6.13.0"
   },
   "repository": "https://github.com/beemojs/conventional-changelog-beemo",
   "author": "Miles Johnson",
   "license": "MIT",
+  "files": [
+    "lib/**/*.{js,map}",
+    "src/**/*.{ts,tsx,json}",
+    "templates/**/*"
+  ],
   "scripts": {
     "prepare": "beemo create-config",
-    "build": "beemo typescript",
+    "build": "packemon build --addEngines",
     "check": "yarn run type && yarn run test && yarn run lint",
     "coverage": "yarn run jest --coverage",
     "lint": "beemo eslint",
@@ -35,11 +41,16 @@
     "@types/shelljs": "^0.8.8",
     "conventional-changelog-core": "^4.2.2",
     "conventional-recommended-bump": "^6.1.0",
+    "packemon": "^1.14.0",
     "shelljs": "^0.8.4"
   },
   "funding": {
     "type": "ko-fi",
     "url": "https://ko-fi.com/milesjohnson"
+  },
+  "packemon": {
+    "format": "lib",
+    "platform": "node"
   },
   "packageManager": "yarn@3.2.0"
 }
