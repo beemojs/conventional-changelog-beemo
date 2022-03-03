@@ -8,7 +8,7 @@
     "preset"
   ],
   "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "types": "./dts/index.d.ts",
   "engines": {
     "node": ">=12.17.0",
     "npm": ">=6.13.0"
@@ -17,13 +17,15 @@
   "author": "Miles Johnson",
   "license": "MIT",
   "files": [
+    "dts/**/*.d.ts",
+    "index.js",
     "lib/**/*.{js,map}",
     "src/**/*.{ts,tsx,json}",
     "templates/**/*"
   ],
   "scripts": {
     "prepare": "beemo create-config",
-    "build": "packemon build --addEngines",
+    "build": "packemon build --addEngines --declaration standard --declarationConfig tsconfig.build.json",
     "check": "yarn run type && yarn run test && yarn run lint",
     "coverage": "yarn run jest --coverage",
     "lint": "beemo eslint",
