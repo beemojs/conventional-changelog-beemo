@@ -25,13 +25,14 @@
   ],
   "scripts": {
     "prepare": "beemo create-config",
-    "build": "packemon build --addEngines --declaration standard --declarationConfig tsconfig.build.json",
+    "build": "packemon build --addEngines",
+    "pack": "NODE_ENV=production packemon pack --addEngines --declaration standard --declarationConfig tsconfig.build.json",
     "check": "yarn run type && yarn run test && yarn run lint",
     "coverage": "yarn run jest --coverage",
     "lint": "beemo eslint",
     "test": "beemo jest -i",
     "format": "beemo prettier",
-    "release": "yarn run build && yarn run check && npx np --yolo",
+    "release": "yarn run pack && yarn run check && npx np --yolo",
     "type": "beemo typescript --noEmit"
   },
   "devDependencies": {
