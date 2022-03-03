@@ -31,9 +31,8 @@
     "lint": "beemo eslint",
     "test": "beemo jest -i",
     "format": "beemo prettier",
-    "release": "npx np --yolo",
-    "type": "beemo typescript --noEmit",
-    "prerelease": "yarn run build && yarn run check"
+    "release": "yarn run build && yarn run check && npx np --yolo",
+    "type": "beemo typescript --noEmit"
   },
   "devDependencies": {
     "@beemo/cli": "^2.0.6",
