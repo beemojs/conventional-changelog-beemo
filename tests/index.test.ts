@@ -5,7 +5,7 @@ import Stream from 'stream';
 import conventionalChangelogCore from 'conventional-changelog-core';
 import conventionalRecommendedBump from 'conventional-recommended-bump';
 import shell from 'shelljs';
-import { config } from '../src';
+import * as config from '../src';
 
 function gitDummyCommit(msg: string[] | string, silent: boolean = true) {
 	const args: string[] = ['--allow-empty', '--no-gpg-sign'];
