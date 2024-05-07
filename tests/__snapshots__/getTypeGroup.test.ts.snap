@@ -1,5 +1,3 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`getTypeGroup() > errors for invalid type 1`] = `[Error: Cannot find group for type "unknown".]`;
-
-exports[`getTypeGroup() errors for invalid type 1`] = `"Cannot find group for type \\"unknown\\"."`;
