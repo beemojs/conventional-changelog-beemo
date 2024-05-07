@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { GROUPS } from './constants';
 import { getTypeGroup } from './getTypeGroup';
-import { CommitGroupLabel, Context, Reference, WriterOptions } from './types';
+import type { CommitGroupLabel, Context, Reference, WriterOptions } from './types';
 
 type GroupMap<T> = { [K in CommitGroupLabel]: T };
 

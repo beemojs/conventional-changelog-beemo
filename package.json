@@ -8,28 +8,24 @@
     "preset"
   ],
   "main": "./lib/index.js",
-  "types": "./dts/index.d.ts",
+  "types": "./lib/index.d.ts",
   "engines": {
-    "node": ">=12.17.0",
-    "npm": ">=6.13.0"
+    "node": ">=18.12.0"
   },
   "repository": "https://github.com/beemojs/conventional-changelog-beemo",
   "author": "Miles Johnson",
   "license": "MIT",
   "files": [
-    "dts/**/*.d.ts",
     "index.js",
-    "lib/**/*.{js,map}",
-    "src/**/*.{ts,tsx,json}",
+    "lib/**/*",
+    "src/**/*",
     "templates/**/*"
   ],
   "scripts": {
-    "prepare": "beemo create-config",
     "build": "packemon build --addEngines",
-    "pack": "NODE_ENV=production packemon pack --addEngines --declaration standard --declarationConfig tsconfig.build.json",
-    "check": "yarn run type && yarn run test && yarn run lint",
+    "pack": "packemon pack --addEngines --declaration",
+    "check": "yarn run type && yarn run test",
     "coverage": "yarn run jest --coverage",
-    "lint": "beemo eslint",
     "test": "beemo jest -i",
     "format": "prettier --write .",
     "release": "yarn run pack && yarn run check && npx np --yolo --no-yarn",
@@ -40,7 +36,7 @@
     "@types/shelljs": "^0.8.11",
     "conventional-changelog-core": "^4.2.4",
     "conventional-recommended-bump": "^6.1.0",
-    "packemon": "^1.14.1",
+    "packemon": "^4.0.1",
     "prettier": "^3.2.5",
     "prettier-config-moon": "^1.1.2",
     "shelljs": "^0.8.5",

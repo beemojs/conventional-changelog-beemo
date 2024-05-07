@@ -1,5 +1,5 @@
 import { COMMIT_FORMAT_PREFIX } from './constants';
-import { ParserOptions } from './types';
+import type { ParserOptions } from './types';
 
 export const parserOpts: Partial<ParserOptions> = {
 	headerCorrespondence: ['type', 'scope', 'message'],

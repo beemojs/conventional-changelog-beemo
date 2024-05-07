@@ -1,6 +1,6 @@
 import { getTypeGroup } from './getTypeGroup';
 import { parserOpts } from './parserOpts';
-import { BumpOptions, Group, SemverLevel } from './types';
+import type { BumpOptions, Group, SemverLevel } from './types';
 
 export const recommendedBumpOpts: BumpOptions = {
 	parserOpts,

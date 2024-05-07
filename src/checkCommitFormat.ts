@@ -1,5 +1,5 @@
 import { COMMIT_FORMAT_PREFIX } from './constants';
-import { CommitType } from './types';
+import type { CommitType } from './types';
 
 export function checkCommitFormat(commit: string): { scope: string; type: CommitType } | null {
 	const match = commit.match(COMMIT_FORMAT_PREFIX);
