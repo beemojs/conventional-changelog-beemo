@@ -13,3 +13,4 @@ CHANGELOG.md
 *.d.cts
 *.d.mts
 .yarn
+*.hbs

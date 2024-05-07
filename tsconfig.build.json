@@ -1,7 +1,9 @@
 {
-	"extends": "./tsconfig.json",
-	"compilerOptions": {
-		"outDir": "dts"
-	},
-	"include": ["src/**/*"]
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dts"
+  },
+  "include": [
+    "src/**/*"
+  ]
 }
