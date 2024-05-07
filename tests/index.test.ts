@@ -5,6 +5,7 @@ import Stream from 'stream';
 import conventionalChangelogCore from 'conventional-changelog-core';
 import conventionalRecommendedBump from 'conventional-recommended-bump';
 import shell from 'shelljs';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import * as config from '../src';
 
 function gitDummyCommit(msg: string[] | string, silent: boolean = true) {
@@ -21,20 +22,20 @@ function gitDummyCommit(msg: string[] | string, silent: boolean = true) {
 	shell.exec(`git commit ${args.join(' ')}`, { silent });
 }
 
-function captureStreamOutput(stream: Stream.Readable, done: jest.DoneCallback) {
-	let data = '';
+function captureStreamOutput(stream: Stream.Readable) {
+	return new Promise((resolve, reject) => {
+		let data = '';
 
-	stream
-		.on('error', (error: Error) => {
-			done.fail(error);
-		})
-		.on('data', (chunk: string) => {
-			data += String(chunk);
-		})
-		.on('end', () => {
-			expect(data.trim()).toMatchSnapshot();
-			done();
-		});
+		stream
+			.on('error', reject)
+			.on('data', (chunk: string) => {
+				data += String(chunk);
+			})
+			.on('end', () => {
+				expect(data.trim()).toMatchSnapshot();
+				resolve(undefined);
+			});
+	});
 }
 
 describe('conventional-changelog-beemo', () => {
@@ -59,7 +60,7 @@ describe('conventional-changelog-beemo', () => {
 		shell.rm('-rf', 'tmp');
 	});
 
-	it('supports all types at once', (done) => {
+	it('supports all types at once', () => {
 		gitDummyCommit(['release: New major!', 'Note: New build system.']);
 		gitDummyCommit(['break: Forms have changed', 'Note: They are easier now!']);
 		gitDummyCommit(['new: amazing new module', 'Not backward compatible.']);
@@ -80,15 +81,14 @@ describe('conventional-changelog-beemo', () => {
 		gitDummyCommit('types: Removed any');
 		gitDummyCommit('perf: Speeeeed');
 
-		captureStreamOutput(
+		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
 			}),
-			done,
 		);
 	});
 
-	it('works if there is no semver tag', (done) => {
+	it('works if there is no semver tag', () => {
 		gitDummyCommit(['build: first build setup', 'Note: New build system.']);
 		gitDummyCommit(['ci(travis): add TravisCI pipeline', 'Continuously integrated.']);
 		gitDummyCommit(['new: amazing new module', 'Not backward compatible.']);
@@ -100,200 +100,185 @@ describe('conventional-changelog-beemo', () => {
 		gitDummyCommit('tests: Added before hooks');
 		gitDummyCommit('perf: Speeeeed');
 
-		captureStreamOutput(
+		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
 			}),
-			done,
 		);
 	});
 
-	it('works if there is a semver tag', (done) => {
+	it('works if there is a semver tag', () => {
 		shell.exec('git tag v1.0.0');
 		gitDummyCommit('update: some more features');
 
-		captureStreamOutput(
+		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
 				outputUnreleased: true,
 			}),
-			done,
 		);
 	});
 
-	it('works with unknown host', (done) => {
+	it('works with unknown host', () => {
 		gitDummyCommit('docs: add manual');
 
-		captureStreamOutput(
+		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
 				pkg: {
 					path: path.join(__dirname, 'package-unknown-repo.json'),
 				},
 			}),
-			done,
 		);
 	});
 
-	it('uses h1 for major versions', (done) => {
+	it('uses h1 for major versions', () => {
 		gitDummyCommit('break: new shit');
 		gitDummyCommit('release: new stuff');
 		gitDummyCommit('fix: just a patch');
 
-		captureStreamOutput(
+		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
 			}),
-			done,
 		);
 	});
 
-	it('uses h2 for minor versions', (done) => {
+	it('uses h2 for minor versions', () => {
 		gitDummyCommit('new: new shit');
 		gitDummyCommit('update: new stuff');
 		gitDummyCommit('feature(modal): better modals');
 		gitDummyCommit('fix: just a patch');
 
-		captureStreamOutput(
+		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
 			}),
-			done,
 		);
 	});
 
-	it('uses h3 for patch versions', (done) => {
+	it('uses h3 for patch versions', () => {
 		gitDummyCommit('docs: add a manual');
 		gitDummyCommit('patch: just a patch');
 
-		captureStreamOutput(
+		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
 			}),
-			done,
 		);
 	});
 
-	it('replaces #[0-9]+ with issue URL', (done) => {
+	it('replaces #[0-9]+ with issue URL', () => {
 		gitDummyCommit(['new(awesome): fix #88']);
 
-		captureStreamOutput(
+		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
 			}),
-			done,
 		);
 	});
 
-	it('replaces @username with GitHub user URL', (done) => {
+	it('replaces @username with GitHub user URL', () => {
 		gitDummyCommit(['feature(awesome): issue brought up by @bcoe! on Friday']);
 
-		captureStreamOutput(
+		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
 			}),
-			done,
 		);
 	});
 
-	it('doesnt replace @username if wrapped in backticks', (done) => {
+	it('doesnt replace @username if wrapped in backticks', () => {
 		gitDummyCommit(['deps: Updated \\`@types\\` packages.']);
 
-		captureStreamOutput(
+		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
 			}),
-			done,
 		);
 	});
 
-	it('handles multiple notes', (done) => {
+	it('handles multiple notes', () => {
 		gitDummyCommit(['release: Initial release', 'Note: Made a lot of changes']);
 		gitDummyCommit(['fix(button): Made button changes', 'Note: Button is more buttony']);
 
-		captureStreamOutput(
+		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
 			}),
-			done,
 		);
 	});
 
-	it('links commits/issues to deep repositories correctly', (done) => {
+	it('links commits/issues to deep repositories correctly', () => {
 		gitDummyCommit(['update: supports sub-package links', ' closes #10']);
 
-		captureStreamOutput(
+		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
 				pkg: {
 					path: path.join(__dirname, 'package-monorepo.json'),
 				},
 			}),
-			done,
 		);
 	});
 
-	it('supports non public GitHub repository locations', (done) => {
+	it('supports non public GitHub repository locations', () => {
 		gitDummyCommit(['update(events): implementing #5 by @dlmr', ' closes #10']);
 		gitDummyCommit('new: why this work?');
 
-		captureStreamOutput(
+		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
 				pkg: {
 					path: path.join(__dirname, 'package-custom-repo.json'),
 				},
 			}),
-			done,
 		);
 	});
 
-	it('only replaces with link to user if it is an username', (done) => {
+	it('only replaces with link to user if it is an username', () => {
 		gitDummyCommit(['fix: use npm@5 (@username)']);
 		gitDummyCommit([
 			'build(deps): bump @dummy/package from 7.1.2 to 8.0.0',
 			'break: The Change is huge.',
 		]);
 
-		captureStreamOutput(
+		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
 			}),
-			done,
 		);
 	});
 
-	it('handles merge commits', (done) => {
+	it('handles merge commits', () => {
 		gitDummyCommit(['fix: use yarn']);
 		gitDummyCommit('Merge pull request #29 from owner/repo');
 
-		captureStreamOutput(
+		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
 			}),
-			done,
 		);
 	});
 
-	it('handles revert type', (done) => {
+	it('handles revert type', () => {
 		gitDummyCommit('revert(foo): undo this');
 		gitDummyCommit('Revert this is the PR title');
 
-		captureStreamOutput(
+		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
 			}),
-			done,
 		);
 	});
 
 	describe('recommended bump', () => {
 		['break', 'breaking', 'release'].forEach((major) => {
-			it(`bumps major version for ${major}`, (done) => {
+			it(`bumps major version for ${major}`, () => {
 				gitDummyCommit(`${major}: new stuff`);
 				gitDummyCommit(`${major}(todo): with scope`);
 
-				conventionalRecommendedBump(
+				return conventionalRecommendedBump(
 					{
 						...commonConfig,
 					},
@@ -304,18 +289,17 @@ describe('conventional-changelog-beemo', () => {
 							reason: 'There are 2 breaking changes and 0 new features',
 							releaseType: 'major',
 						});
-						done();
 					},
 				);
 			});
 		});
 
 		['new', 'update', 'feature'].forEach((minor) => {
-			it(`bumps minor version for ${minor}`, (done) => {
+			it(`bumps minor version for ${minor}`, () => {
 				gitDummyCommit(`${minor}: new stuff`);
 				gitDummyCommit(`${minor}(todo): with scope`);
 
-				conventionalRecommendedBump(
+				return conventionalRecommendedBump(
 					{
 						...commonConfig,
 					},
@@ -326,7 +310,6 @@ describe('conventional-changelog-beemo', () => {
 							reason: 'There are 0 breaking changes and 2 new features',
 							releaseType: 'minor',
 						});
-						done();
 					},
 				);
 			});
@@ -344,11 +327,11 @@ describe('conventional-changelog-beemo', () => {
 			'types',
 			'perf',
 		].forEach((patch) => {
-			it(`bumps patch version for ${patch}`, (done) => {
+			it(`bumps patch version for ${patch}`, () => {
 				gitDummyCommit(`${patch}: new stuff`);
 				gitDummyCommit(`${patch}(todo): with scope`);
 
-				conventionalRecommendedBump(
+				return conventionalRecommendedBump(
 					{
 						...commonConfig,
 						ignoreReverted: false,
@@ -360,18 +343,17 @@ describe('conventional-changelog-beemo', () => {
 							reason: 'There are 0 breaking changes and 0 new features',
 							releaseType: 'patch',
 						});
-						done();
 					},
 				);
 			});
 		});
 
 		['docs', 'ci', 'cd', 'build', 'test', 'tests', 'internal'].forEach((minor) => {
-			it(`doesnt bump version for ${minor}`, (done) => {
+			it(`doesnt bump version for ${minor}`, () => {
 				gitDummyCommit(`${minor}: new stuff`);
 				gitDummyCommit(`${minor}(todo): with scope`);
 
-				conventionalRecommendedBump(
+				return conventionalRecommendedBump(
 					{
 						...commonConfig,
 					},
@@ -381,17 +363,16 @@ describe('conventional-changelog-beemo', () => {
 							level: null,
 							reason: 'There are 0 breaking changes and 0 new features',
 						});
-						done();
 					},
 				);
 			});
 		});
 
-		it('does nothing when no type exist', (done) => {
+		it('does nothing when no type exist', () => {
 			gitDummyCommit('new stuff');
 			gitDummyCommit('commit without a type');
 
-			conventionalRecommendedBump(
+			return conventionalRecommendedBump(
 				{
 					...commonConfig,
 				},
@@ -401,7 +382,6 @@ describe('conventional-changelog-beemo', () => {
 						level: null,
 						reason: 'There are 0 breaking changes and 0 new features',
 					});
-					done();
 				},
 			);
 		});
