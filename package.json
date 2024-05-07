@@ -32,8 +32,8 @@
     "type": "tsc --noEmit"
   },
   "devDependencies": {
-    "@types/node": "^17.0.23",
-    "@types/shelljs": "^0.8.11",
+    "@types/node": "^20.12.10",
+    "@types/shelljs": "^0.8.15",
     "conventional-changelog-core": "^4.2.4",
     "conventional-recommended-bump": "^6.1.0",
     "packemon": "^4.0.1",
