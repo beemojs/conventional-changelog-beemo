@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { GROUPS } from './constants';
 import { getTypeGroup } from './getTypeGroup';
-import type { Context, Reference, WriterOptions } from './types';
+import type { Commit, Context, Reference, WriterOptions } from './types';
 
 const groupEmojis = Object.fromEntries(GROUPS.map((group) => [group.label, group.emoji]));
 
@@ -25,9 +25,9 @@ const sortWeights: Record<string, number> = {
 	Internals: -5,
 };
 
-function createLink(paths: string[], context: Context, reference: Partial<Reference> = {}): string {
-	const owner = reference.owner || context.owner;
-	const repository = reference.repository || context.repository;
+function createLink(paths: string[], context: Context, reference?: Reference): string {
+	const owner = reference?.owner || context.owner;
+	const repository = reference?.repository || context.repository;
 	const url: string[] = [];
 
 	if (repository) {
@@ -87,12 +87,16 @@ export const writerOpts: WriterOptions = {
 	noteGroupsSort: 'title',
 
 	// Add metadata
-	transform(commit, context) {
+	transform(originalCommit, context) {
 		Object.assign(context, { groupEmojis });
 
-		if (!commit.type) {
+		if (!originalCommit.type) {
 			return null;
 		}
+
+		// The original commit (and nested objects) are immutable,
+		// but we need to modify it, so we'll clone it.
+		const commit: Commit = JSON.parse(JSON.stringify(originalCommit));
 
 		// Use consistent values for snapshots
 		if (process.env.NODE_ENV === 'test') {

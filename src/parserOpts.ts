@@ -1,5 +1,5 @@
-import type { ParserOptions } from 'conventional-commits-parser';
 import { COMMIT_FORMAT_PREFIX } from './constants';
+import type { ParserOptions } from './types';
 
 export const parserOpts: ParserOptions = {
 	headerCorrespondence: ['type', 'scope', 'message'],

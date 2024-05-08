@@ -4,7 +4,7 @@ import Stream from 'stream';
 import conventionalChangelogCore from 'conventional-changelog-core';
 import { Bumper } from 'conventional-recommended-bump';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import * as config from '../src';
+import preset, { whatBump } from '../src';
 import { TestTools } from './utils';
 
 function captureStreamOutput(stream: Stream.Readable) {
@@ -27,7 +27,7 @@ describe('conventional-changelog-beemo', () => {
 	let utils: TestTools;
 
 	const commonConfig = {
-		config,
+		config: preset,
 		pkg: {
 			path: path.join(__dirname, 'package.json'),
 		},
@@ -41,7 +41,7 @@ describe('conventional-changelog-beemo', () => {
 
 		try {
 			// @ts-expect-error Ignore error
-			op(null, await bumper.bump(params.config.whatBump));
+			op(null, await bumper.bump(whatBump));
 		} catch (error) {
 			op(error as Error, {});
 		}

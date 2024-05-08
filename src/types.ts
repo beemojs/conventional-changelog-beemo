@@ -9,8 +9,8 @@ export type { ParserOptions } from 'conventional-commits-parser';
 
 export interface Reference extends CommitReference {
 	// Beemo
-	issueLink: string;
-	source: string;
+	issueLink?: string;
+	source?: string;
 }
 
 export type CommitType =
