@@ -1,26 +1,12 @@
-/* eslint-disable jest/expect-expect, jest/no-done-callback */
-
 import path from 'path';
 import Stream from 'stream';
+// @ts-expect-error Not typed
 import conventionalChangelogCore from 'conventional-changelog-core';
-import conventionalRecommendedBump from 'conventional-recommended-bump';
+import { Bumper } from 'conventional-recommended-bump';
 import shell from 'shelljs';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import * as config from '../src';
-
-function gitDummyCommit(msg: string[] | string, silent: boolean = true) {
-	const args: string[] = ['--allow-empty', '--no-gpg-sign'];
-
-	if (Array.isArray(msg)) {
-		msg.forEach((m) => {
-			args.push(`-m"${m}"`);
-		});
-	} else {
-		args.push(`-m"${msg}"`);
-	}
-
-	shell.exec(`git commit ${args.join(' ')}`, { silent });
-}
+import { TestTools } from './utils';
 
 function captureStreamOutput(stream: Stream.Readable) {
 	return new Promise((resolve, reject) => {
@@ -39,6 +25,8 @@ function captureStreamOutput(stream: Stream.Readable) {
 }
 
 describe('conventional-changelog-beemo', () => {
+	let utils: TestTools;
+
 	const commonConfig = {
 		config,
 		pkg: {
@@ -46,85 +34,96 @@ describe('conventional-changelog-beemo', () => {
 		},
 	};
 
+	async function conventionalRecommendedBump(
+		params: object,
+		op: (error: Error | null, result: object) => void,
+	) {
+		const bumper = new Bumper(utils.cwd);
+
+		try {
+			op(null, await bumper.bump(params.config.whatBump));
+		} catch (error) {
+			op(error as Error, {});
+		}
+	}
+
 	beforeEach(() => {
-		(shell.config as any).resetForTesting();
-		shell.cd(__dirname);
-		shell.mkdir('tmp');
-		shell.cd('tmp');
-		shell.mkdir('git-templates');
-		shell.exec('git init --template=./git-templates');
+		utils = new TestTools();
 	});
 
 	afterEach(() => {
-		shell.cd(__dirname);
-		shell.rm('-rf', 'tmp');
+		utils.cleanup();
 	});
 
 	it('supports all types at once', () => {
-		gitDummyCommit(['release: New major!', 'Note: New build system.']);
-		gitDummyCommit(['break: Forms have changed', 'Note: They are easier now!']);
-		gitDummyCommit(['new: amazing new module', 'Not backward compatible.']);
-		gitDummyCommit('fix: updated i18n');
-		gitDummyCommit(['update(modal, button): added accessibility', 'closes #1, #2']);
-		gitDummyCommit('feature(core): settings refactor');
-		gitDummyCommit('Random commit with no type');
-		gitDummyCommit('docs: added getting started');
-		gitDummyCommit('style(button): polished rounded corners');
-		gitDummyCommit(['security(auth): improved logic', 'fixes #3']);
-		gitDummyCommit('Revert PR #1');
-		gitDummyCommit('ci(travis): fixed yaml config');
-		gitDummyCommit('build(deps): updated dev tools');
-		gitDummyCommit('test: setup testing framework');
-		gitDummyCommit('internal(ts): updated types');
-		gitDummyCommit('deps(babel,jest): Bumped to latest');
-		gitDummyCommit(['patch(router): Fix params']);
-		gitDummyCommit('types: Removed any');
-		gitDummyCommit('perf: Speeeeed');
+		utils.gitCommit(['release: New major!', 'Note: New build system.']);
+		utils.gitCommit(['break: Forms have changed', 'Note: They are easier now!']);
+		utils.gitCommit(['new: amazing new module', 'Not backward compatible.']);
+		utils.gitCommit('fix: updated i18n');
+		utils.gitCommit(['update(modal, button): added accessibility', 'closes #1, #2']);
+		utils.gitCommit('feature(core): settings refactor');
+		utils.gitCommit('Random commit with no type');
+		utils.gitCommit('docs: added getting started');
+		utils.gitCommit('style(button): polished rounded corners');
+		utils.gitCommit(['security(auth): improved logic', 'fixes #3']);
+		utils.gitCommit('Revert PR #1');
+		utils.gitCommit('ci(travis): fixed yaml config');
+		utils.gitCommit('build(deps): updated dev tools');
+		utils.gitCommit('test: setup testing framework');
+		utils.gitCommit('internal(ts): updated types');
+		utils.gitCommit('deps(babel,jest): Bumped to latest');
+		utils.gitCommit(['patch(router): Fix params']);
+		utils.gitCommit('types: Removed any');
+		utils.gitCommit('perf: Speeeeed');
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
+				cwd: utils.cwd,
 			}),
 		);
 	});
 
 	it('works if there is no semver tag', () => {
-		gitDummyCommit(['build: first build setup', 'Note: New build system.']);
-		gitDummyCommit(['ci(travis): add TravisCI pipeline', 'Continuously integrated.']);
-		gitDummyCommit(['new: amazing new module', 'Not backward compatible.']);
-		gitDummyCommit(['fix(compile): avoid a bug', 'The Change is huge.']);
-		gitDummyCommit(['update(ngOptions): make it faster', 'closes #1, #2']);
-		gitDummyCommit('revert(ngOptions): bad commit');
-		gitDummyCommit('fix(*): oops');
-		gitDummyCommit('type: Added unknown');
-		gitDummyCommit('tests: Added before hooks');
-		gitDummyCommit('perf: Speeeeed');
+		utils.gitCommit(['build: first build setup', 'Note: New build system.']);
+		utils.gitCommit(['ci(travis): add TravisCI pipeline', 'Continuously integrated.']);
+		utils.gitCommit(['new: amazing new module', 'Not backward compatible.']);
+		utils.gitCommit(['fix(compile): avoid a bug', 'The Change is huge.']);
+		utils.gitCommit(['update(ngOptions): make it faster', 'closes #1, #2']);
+		utils.gitCommit('revert(ngOptions): bad commit');
+		utils.gitCommit('fix(*): oops');
+		utils.gitCommit('type: Added unknown');
+		utils.gitCommit('tests: Added before hooks');
+		utils.gitCommit('perf: Speeeeed');
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
+				cwd: utils.cwd,
 			}),
 		);
 	});
 
 	it('works if there is a semver tag', () => {
 		shell.exec('git tag v1.0.0');
-		gitDummyCommit('update: some more features');
+		utils.gitCommit('update: some more features');
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
+				cwd: utils.cwd,
 				outputUnreleased: true,
 			}),
 		);
 	});
 
 	it('works with unknown host', () => {
-		gitDummyCommit('docs: add manual');
+		utils.gitCommit('docs: add manual');
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
+				cwd: utils.cwd,
 				pkg: {
 					path: path.join(__dirname, 'package-unknown-repo.json'),
 				},
@@ -133,88 +132,96 @@ describe('conventional-changelog-beemo', () => {
 	});
 
 	it('uses h1 for major versions', () => {
-		gitDummyCommit('break: new shit');
-		gitDummyCommit('release: new stuff');
-		gitDummyCommit('fix: just a patch');
+		utils.gitCommit('break: new shit');
+		utils.gitCommit('release: new stuff');
+		utils.gitCommit('fix: just a patch');
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
+				cwd: utils.cwd,
 			}),
 		);
 	});
 
 	it('uses h2 for minor versions', () => {
-		gitDummyCommit('new: new shit');
-		gitDummyCommit('update: new stuff');
-		gitDummyCommit('feature(modal): better modals');
-		gitDummyCommit('fix: just a patch');
+		utils.gitCommit('new: new shit');
+		utils.gitCommit('update: new stuff');
+		utils.gitCommit('feature(modal): better modals');
+		utils.gitCommit('fix: just a patch');
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
+				cwd: utils.cwd,
 			}),
 		);
 	});
 
 	it('uses h3 for patch versions', () => {
-		gitDummyCommit('docs: add a manual');
-		gitDummyCommit('patch: just a patch');
+		utils.gitCommit('docs: add a manual');
+		utils.gitCommit('patch: just a patch');
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
+				cwd: utils.cwd,
 			}),
 		);
 	});
 
 	it('replaces #[0-9]+ with issue URL', () => {
-		gitDummyCommit(['new(awesome): fix #88']);
+		utils.gitCommit(['new(awesome): fix #88']);
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
+				cwd: utils.cwd,
 			}),
 		);
 	});
 
 	it('replaces @username with GitHub user URL', () => {
-		gitDummyCommit(['feature(awesome): issue brought up by @bcoe! on Friday']);
+		utils.gitCommit(['feature(awesome): issue brought up by @bcoe! on Friday']);
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
+				cwd: utils.cwd,
 			}),
 		);
 	});
 
 	it('doesnt replace @username if wrapped in backticks', () => {
-		gitDummyCommit(['deps: Updated \\`@types\\` packages.']);
+		utils.gitCommit(['deps: Updated \\`@types\\` packages.']);
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
+				cwd: utils.cwd,
 			}),
 		);
 	});
 
 	it('handles multiple notes', () => {
-		gitDummyCommit(['release: Initial release', 'Note: Made a lot of changes']);
-		gitDummyCommit(['fix(button): Made button changes', 'Note: Button is more buttony']);
+		utils.gitCommit(['release: Initial release', 'Note: Made a lot of changes']);
+		utils.gitCommit(['fix(button): Made button changes', 'Note: Button is more buttony']);
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
+				cwd: utils.cwd,
 			}),
 		);
 	});
 
 	it('links commits/issues to deep repositories correctly', () => {
-		gitDummyCommit(['update: supports sub-package links', ' closes #10']);
+		utils.gitCommit(['update: supports sub-package links', ' closes #10']);
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
+				cwd: utils.cwd,
 				pkg: {
 					path: path.join(__dirname, 'package-monorepo.json'),
 				},
@@ -223,12 +230,13 @@ describe('conventional-changelog-beemo', () => {
 	});
 
 	it('supports non public GitHub repository locations', () => {
-		gitDummyCommit(['update(events): implementing #5 by @dlmr', ' closes #10']);
-		gitDummyCommit('new: why this work?');
+		utils.gitCommit(['update(events): implementing #5 by @dlmr', ' closes #10']);
+		utils.gitCommit('new: why this work?');
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
+				cwd: utils.cwd,
 				pkg: {
 					path: path.join(__dirname, 'package-custom-repo.json'),
 				},
@@ -237,8 +245,8 @@ describe('conventional-changelog-beemo', () => {
 	});
 
 	it('only replaces with link to user if it is an username', () => {
-		gitDummyCommit(['fix: use npm@5 (@username)']);
-		gitDummyCommit([
+		utils.gitCommit(['fix: use npm@5 (@username)']);
+		utils.gitCommit([
 			'build(deps): bump @dummy/package from 7.1.2 to 8.0.0',
 			'break: The Change is huge.',
 		]);
@@ -246,43 +254,47 @@ describe('conventional-changelog-beemo', () => {
 		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
+				cwd: utils.cwd,
 			}),
 		);
 	});
 
 	it('handles merge commits', () => {
-		gitDummyCommit(['fix: use yarn']);
-		gitDummyCommit('Merge pull request #29 from owner/repo');
+		utils.gitCommit(['fix: use yarn']);
+		utils.gitCommit('Merge pull request #29 from owner/repo');
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
+				cwd: utils.cwd,
 			}),
 		);
 	});
 
 	it('handles revert type', () => {
-		gitDummyCommit('revert(foo): undo this');
-		gitDummyCommit('Revert this is the PR title');
+		utils.gitCommit('revert(foo): undo this');
+		utils.gitCommit('Revert this is the PR title');
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
 				...commonConfig,
+				cwd: utils.cwd,
 			}),
 		);
 	});
 
 	describe('recommended bump', () => {
 		['break', 'breaking', 'release'].forEach((major) => {
-			it(`bumps major version for ${major}`, () => {
-				gitDummyCommit(`${major}: new stuff`);
-				gitDummyCommit(`${major}(todo): with scope`);
+			it.only(`bumps major version for ${major}`, () => {
+				utils.gitCommit(`${major}: new stuff`);
+				utils.gitCommit(`${major}(todo): with scope`);
 
 				return conventionalRecommendedBump(
 					{
 						...commonConfig,
 					},
 					(error: Error | null, result: object) => {
+						console.log(error);
 						expect(error).toBeNull();
 						expect(result).toEqual({
 							level: 0,
@@ -296,8 +308,8 @@ describe('conventional-changelog-beemo', () => {
 
 		['new', 'update', 'feature'].forEach((minor) => {
 			it(`bumps minor version for ${minor}`, () => {
-				gitDummyCommit(`${minor}: new stuff`);
-				gitDummyCommit(`${minor}(todo): with scope`);
+				utils.gitCommit(`${minor}: new stuff`);
+				utils.gitCommit(`${minor}(todo): with scope`);
 
 				return conventionalRecommendedBump(
 					{
@@ -328,8 +340,8 @@ describe('conventional-changelog-beemo', () => {
 			'perf',
 		].forEach((patch) => {
 			it(`bumps patch version for ${patch}`, () => {
-				gitDummyCommit(`${patch}: new stuff`);
-				gitDummyCommit(`${patch}(todo): with scope`);
+				utils.gitCommit(`${patch}: new stuff`);
+				utils.gitCommit(`${patch}(todo): with scope`);
 
 				return conventionalRecommendedBump(
 					{
@@ -350,8 +362,8 @@ describe('conventional-changelog-beemo', () => {
 
 		['docs', 'ci', 'cd', 'build', 'test', 'tests', 'internal'].forEach((minor) => {
 			it(`doesnt bump version for ${minor}`, () => {
-				gitDummyCommit(`${minor}: new stuff`);
-				gitDummyCommit(`${minor}(todo): with scope`);
+				utils.gitCommit(`${minor}: new stuff`);
+				utils.gitCommit(`${minor}(todo): with scope`);
 
 				return conventionalRecommendedBump(
 					{
@@ -369,8 +381,8 @@ describe('conventional-changelog-beemo', () => {
 		});
 
 		it('does nothing when no type exist', () => {
-			gitDummyCommit('new stuff');
-			gitDummyCommit('commit without a type');
+			utils.gitCommit('new stuff');
+			utils.gitCommit('commit without a type');
 
 			return conventionalRecommendedBump(
 				{

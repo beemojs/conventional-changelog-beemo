@@ -5,15 +5,11 @@ import fs from 'fs';
 import path from 'path';
 import { GROUPS } from './constants';
 import { getTypeGroup } from './getTypeGroup';
-import type { CommitGroupLabel, Context, Reference, WriterOptions } from './types';
+import type { Context, Reference, WriterOptions } from './types';
 
-type GroupMap<T> = { [K in CommitGroupLabel]: T };
+const groupEmojis = Object.fromEntries(GROUPS.map((group) => [group.label, group.emoji]));
 
-const groupEmojis = Object.fromEntries(
-	GROUPS.map((group) => [group.label, group.emoji]),
-) as GroupMap<string>;
-
-const sortWeights: GroupMap<number> = {
+const sortWeights: Record<string, number> = {
 	Release: 4,
 	Breaking: 3,
 	Updates: 2,
@@ -44,7 +40,7 @@ function createLink(paths: string[], context: Context, reference: Partial<Refere
 		}
 
 		url.push(repository);
-	} else {
+	} else if (context.repoUrl) {
 		url.push(context.repoUrl);
 	}
 
@@ -67,7 +63,7 @@ function createLink(paths: string[], context: Context, reference: Partial<Refere
 	return [base, ...paths].join('/');
 }
 
-export const writerOpts: Partial<WriterOptions> = {
+export const writerOpts: WriterOptions = {
 	mainTemplate: fs.readFileSync(path.join(__dirname, '../templates/template.hbs'), 'utf8'),
 	commitPartial: fs.readFileSync(path.join(__dirname, '../templates/commit.hbs'), 'utf8'),
 	headerPartial: fs.readFileSync(path.join(__dirname, '../templates/header.hbs'), 'utf8'),
@@ -92,10 +88,10 @@ export const writerOpts: Partial<WriterOptions> = {
 
 	// Add metadata
 	transform(commit, context) {
-		context.groupEmojis = groupEmojis;
+		Object.assign(context, { groupEmojis });
 
 		if (!commit.type) {
-			return undefined;
+			return null;
 		}
 
 		// Use consistent values for snapshots
@@ -117,9 +113,9 @@ export const writerOpts: Partial<WriterOptions> = {
 		commit.label = group.label;
 
 		if (group.bump === 'major') {
-			context.isMajor = true;
+			Object.assign(context, { isMajor: true });
 		} else if (group.bump === 'minor') {
-			context.isMinor = true;
+			Object.assign(context, { isMinor: true });
 		}
 
 		// Use shorthand hashes

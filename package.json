@@ -31,11 +31,15 @@
     "release": "yarn run pack && yarn run check && npx np --yolo --no-yarn",
     "type": "tsc --noEmit"
   },
+  "dependencies": {
+    "conventional-changelog-writer": "^8.0.0",
+    "conventional-commits-parser": "^6.0.0"
+  },
   "devDependencies": {
     "@types/node": "^20.12.10",
     "@types/shelljs": "^0.8.15",
-    "conventional-changelog-core": "^4.2.4",
-    "conventional-recommended-bump": "^6.1.0",
+    "conventional-changelog-core": "^8.0.0",
+    "conventional-recommended-bump": "^10.0.0",
     "packemon": "^4.0.1",
     "prettier": "^3.2.5",
     "prettier-config-moon": "^1.1.2",
