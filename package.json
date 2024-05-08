@@ -16,7 +16,6 @@
   "author": "Miles Johnson",
   "license": "MIT",
   "files": [
-    "index.js",
     "lib/**/*",
     "src/**/*",
     "templates/**/*"
@@ -25,8 +24,7 @@
     "build": "packemon build --addEngines",
     "pack": "packemon pack --addEngines --declaration",
     "check": "yarn run type && yarn run test",
-    "coverage": "yarn run jest --coverage",
-    "test": "vitest",
+    "test": "vitest --run",
     "format": "prettier --write .",
     "release": "yarn run pack && yarn run check && npx np --yolo --no-yarn",
     "type": "tsc --noEmit"
