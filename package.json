@@ -1,6 +1,6 @@
 {
   "name": "conventional-changelog-beemo",
-  "version": "3.0.1",
+  "version": "4.0.0",
   "description": "Conventional changelog preset for Beemo and associated projects.",
   "keywords": [
     "conventional-changelog",
