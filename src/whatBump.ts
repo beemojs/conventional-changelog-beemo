@@ -12,6 +12,13 @@ export async function whatBump(commits: Commit[]): Promise<BumperRecommendation>
 		let group: Group;
 
 		try {
+			if (commit.breaking) {
+				breakings += 1;
+				level = 0;
+
+				return;
+			}
+
 			if (commit.type) {
 				group = getTypeGroup(commit.type as CommitType);
 			} else {

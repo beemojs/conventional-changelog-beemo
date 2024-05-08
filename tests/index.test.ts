@@ -65,17 +65,17 @@ describe('conventional-changelog-beemo', () => {
 		utils.gitCommit('feature(core): settings refactor');
 		utils.gitCommit('Random commit with no type');
 		utils.gitCommit('docs: added getting started');
-		utils.gitCommit('style(button): polished rounded corners');
+		utils.gitCommit('style(button)!: polished rounded corners');
 		utils.gitCommit(['security(auth): improved logic', 'fixes #3']);
 		utils.gitCommit('Revert PR #1');
 		utils.gitCommit('ci(travis): fixed yaml config');
 		utils.gitCommit('build(deps): updated dev tools');
 		utils.gitCommit('test: setup testing framework');
-		utils.gitCommit('internal(ts): updated types');
+		utils.gitCommit('internal(ts)!: updated types');
 		utils.gitCommit('deps(babel,jest): Bumped to latest');
 		utils.gitCommit(['patch(router): Fix params']);
 		utils.gitCommit('types: Removed any');
-		utils.gitCommit('perf: Speeeeed');
+		utils.gitCommit('perf!: Speeeeed');
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
@@ -162,6 +162,17 @@ describe('conventional-changelog-beemo', () => {
 	it('uses h3 for patch versions', () => {
 		utils.gitCommit('docs: add a manual');
 		utils.gitCommit('patch: just a patch');
+
+		return captureStreamOutput(
+			conventionalChangelogCore({
+				...commonConfig,
+				cwd: utils.cwd,
+			}),
+		);
+	});
+
+	it('supports exclamation as a breaking modifier', () => {
+		utils.gitCommit('docs!: add a manual');
 
 		return captureStreamOutput(
 			conventionalChangelogCore({

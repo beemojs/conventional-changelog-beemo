@@ -134,6 +134,14 @@ They are easier now!
 - **[ts]** updated types ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
 `;
 
+exports[`conventional-changelog-beemo > supports exclamation as a breaking modifier 1`] = `
+"### 1.0.0 - 2019-02-26
+
+#### 📘 Docs
+
+- add a manual ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+`;
+
 exports[`conventional-changelog-beemo > supports non public GitHub repository locations 1`] = `
 "## 3.0.0 - 2019-02-26
 

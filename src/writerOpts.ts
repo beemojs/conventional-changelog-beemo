@@ -104,6 +104,11 @@ export const writerOpts: WriterOptions = {
 			context.date = '2019-02-26';
 		}
 
+		// Set these values for templates
+		if (commit.type === 'break' || commit.type === 'breaking') {
+			commit.breaking = '!'; // matches regex
+		}
+
 		// Override type for specific scenarios
 		if (commit.revert) {
 			commit.type = 'revert';
