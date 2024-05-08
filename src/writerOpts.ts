@@ -5,15 +5,11 @@ import fs from 'fs';
 import path from 'path';
 import { GROUPS } from './constants';
 import { getTypeGroup } from './getTypeGroup';
-import { CommitGroupLabel, Context, Reference, WriterOptions } from './types';
+import type { Commit, Context, Reference, WriterOptions } from './types';
 
-type GroupMap<T> = { [K in CommitGroupLabel]: T };
+const groupEmojis = Object.fromEntries(GROUPS.map((group) => [group.label, group.emoji]));
 
-const groupEmojis = Object.fromEntries(
-	GROUPS.map((group) => [group.label, group.emoji]),
-) as GroupMap<string>;
-
-const sortWeights: GroupMap<number> = {
+const sortWeights: Record<string, number> = {
 	Release: 4,
 	Breaking: 3,
 	Updates: 2,
@@ -29,9 +25,9 @@ const sortWeights: GroupMap<number> = {
 	Internals: -5,
 };
 
-function createLink(paths: string[], context: Context, reference: Partial<Reference> = {}): string {
-	const owner = reference.owner || context.owner;
-	const repository = reference.repository || context.repository;
+function createLink(paths: string[], context: Context, reference?: Reference): string {
+	const owner = reference?.owner || context.owner;
+	const repository = reference?.repository || context.repository;
 	const url: string[] = [];
 
 	if (repository) {
@@ -44,7 +40,7 @@ function createLink(paths: string[], context: Context, reference: Partial<Refere
 		}
 
 		url.push(repository);
-	} else {
+	} else if (context.repoUrl) {
 		url.push(context.repoUrl);
 	}
 
@@ -67,7 +63,7 @@ function createLink(paths: string[], context: Context, reference: Partial<Refere
 	return [base, ...paths].join('/');
 }
 
-export const writerOpts: Partial<WriterOptions> = {
+export const writerOpts: WriterOptions = {
 	mainTemplate: fs.readFileSync(path.join(__dirname, '../templates/template.hbs'), 'utf8'),
 	commitPartial: fs.readFileSync(path.join(__dirname, '../templates/commit.hbs'), 'utf8'),
 	headerPartial: fs.readFileSync(path.join(__dirname, '../templates/header.hbs'), 'utf8'),
@@ -91,12 +87,16 @@ export const writerOpts: Partial<WriterOptions> = {
 	noteGroupsSort: 'title',
 
 	// Add metadata
-	transform(commit, context) {
-		context.groupEmojis = groupEmojis;
+	transform(originalCommit, context) {
+		Object.assign(context, { groupEmojis });
 
-		if (!commit.type) {
-			return undefined;
+		if (!originalCommit.type) {
+			return null;
 		}
+
+		// The original commit (and nested objects) are immutable,
+		// but we need to modify it, so we'll clone it.
+		const commit: Commit = JSON.parse(JSON.stringify(originalCommit));
 
 		// Use consistent values for snapshots
 		if (process.env.NODE_ENV === 'test') {
@@ -117,9 +117,9 @@ export const writerOpts: Partial<WriterOptions> = {
 		commit.label = group.label;
 
 		if (group.bump === 'major') {
-			context.isMajor = true;
+			Object.assign(context, { isMajor: true });
 		} else if (group.bump === 'minor') {
-			context.isMinor = true;
+			Object.assign(context, { isMinor: true });
 		}
 
 		// Use shorthand hashes

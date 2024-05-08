@@ -10,23 +10,24 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12, 14, 16]
+        node-version: [18, 20]
       fail-fast: true
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
       - run: yarn install --immutable
       - run: yarn run type
-      # Our fake git commit system doesnt work in GH jobs
-      # - run: yarn run jest
-      - run: yarn run lint
+      # Required for our Git related tests
+      - run: git config --global user.name 'CI'
+      - run: git config --global user.email 'dummy@example.org'
+      - run: yarn run test
   build:
     name: Pack
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
       - run: yarn install --immutable
       - run: yarn run pack

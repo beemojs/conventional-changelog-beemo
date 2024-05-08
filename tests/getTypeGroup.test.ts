@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { getTypeGroup } from '../src/getTypeGroup';
 
 describe('getTypeGroup()', () => {

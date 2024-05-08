@@ -1,4 +1,4 @@
-import { Group } from './types';
+import type { Group } from './types';
 
 export const COMMIT_FORMAT_PREFIX =
 	// eslint-disable-next-line unicorn/no-unsafe-regex
