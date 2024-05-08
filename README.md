@@ -16,6 +16,8 @@ The commit message format consists of a **type**, optional **scope** in parens, 
 ```
 <type>: <message>
 <type>(<scope>): <message>
+<type>!: <breaking message>
+<type>(<scope>)!: <breaking message>
 ```
 
 ### Type
