@@ -10,11 +10,16 @@ describe('checkCommitFormat()', () => {
 	});
 
 	it('returns the type without scope', () => {
-		expect(checkCommitFormat('new: Added something')).toEqual({ type: 'new', scope: '' });
+		expect(checkCommitFormat('new: Added something')).toEqual({
+			breaking: false,
+			type: 'new',
+			scope: '',
+		});
 	});
 
 	it('returns the type and scope', () => {
 		expect(checkCommitFormat('update(foo): Updated something')).toEqual({
+			breaking: false,
 			type: 'update',
 			scope: 'foo',
 		});
@@ -22,6 +27,7 @@ describe('checkCommitFormat()', () => {
 
 	it('supports dashes and numbers', () => {
 		expect(checkCommitFormat('fix(foo-123): Did something')).toEqual({
+			breaking: false,
 			type: 'fix',
 			scope: 'foo-123',
 		});
@@ -29,6 +35,7 @@ describe('checkCommitFormat()', () => {
 
 	it('supports comma separated', () => {
 		expect(checkCommitFormat('ci(foo,bar): Did something')).toEqual({
+			breaking: false,
 			type: 'ci',
 			scope: 'foo,bar',
 		});
@@ -36,6 +43,7 @@ describe('checkCommitFormat()', () => {
 
 	it('supports upper case scopes', () => {
 		expect(checkCommitFormat('ci(FooBar): Did something')).toEqual({
+			breaking: false,
 			type: 'ci',
 			scope: 'FooBar',
 		});
@@ -43,8 +51,33 @@ describe('checkCommitFormat()', () => {
 
 	it('supports spaces', () => {
 		expect(checkCommitFormat('ci(Foo, Bar Baz): Did something')).toEqual({
+			breaking: false,
 			type: 'ci',
 			scope: 'Foo, Bar Baz',
+		});
+	});
+
+	it('breaking type', () => {
+		expect(checkCommitFormat('break: Did something')).toEqual({
+			breaking: true,
+			type: 'break',
+			scope: '',
+		});
+	});
+
+	it('breaking via exclamation', () => {
+		expect(checkCommitFormat('new!: Did something')).toEqual({
+			breaking: true,
+			type: 'new',
+			scope: '',
+		});
+	});
+
+	it('breaking via exclamation with scope', () => {
+		expect(checkCommitFormat('new(foo)!: Did something')).toEqual({
+			breaking: true,
+			type: 'new',
+			scope: 'foo',
 		});
 	});
 });

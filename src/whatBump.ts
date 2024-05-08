@@ -9,6 +9,13 @@ export async function whatBump(commits: Commit[]): Promise<BumperRecommendation>
 	let features = 0;
 
 	commits.forEach((commit) => {
+		if (commit.breaking) {
+			breakings += 1;
+			level = 0;
+
+			return;
+		}
+
 		let group: Group;
 
 		try {

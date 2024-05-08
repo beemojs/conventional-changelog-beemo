@@ -65,6 +65,7 @@ export interface Group {
 export interface Commit extends CommitBase {
 	references: Reference[];
 	// Beemo
+	breaking?: string; // !
 	hash: string;
 	hashLink: string;
 	label: CommitGroupLabel;

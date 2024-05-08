@@ -4,7 +4,7 @@ import Stream from 'stream';
 import conventionalChangelogCore from 'conventional-changelog-core';
 import { Bumper } from 'conventional-recommended-bump';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import preset, { whatBump } from '../src';
+import preset from '../src';
 import { TestTools } from './utils';
 
 function captureStreamOutput(stream: Stream.Readable) {
@@ -41,7 +41,7 @@ describe('conventional-changelog-beemo', () => {
 
 		try {
 			// @ts-expect-error Ignore error
-			op(null, await bumper.bump(whatBump));
+			op(null, await bumper.bump(preset().whatBump));
 		} catch (error) {
 			op(error as Error, {});
 		}
@@ -65,17 +65,17 @@ describe('conventional-changelog-beemo', () => {
 		utils.gitCommit('feature(core): settings refactor');
 		utils.gitCommit('Random commit with no type');
 		utils.gitCommit('docs: added getting started');
-		utils.gitCommit('style(button): polished rounded corners');
+		utils.gitCommit('style(button)!: polished rounded corners');
 		utils.gitCommit(['security(auth): improved logic', 'fixes #3']);
 		utils.gitCommit('Revert PR #1');
 		utils.gitCommit('ci(travis): fixed yaml config');
 		utils.gitCommit('build(deps): updated dev tools');
 		utils.gitCommit('test: setup testing framework');
-		utils.gitCommit('internal(ts): updated types');
+		utils.gitCommit('internal(ts)!: updated types');
 		utils.gitCommit('deps(babel,jest): Bumped to latest');
 		utils.gitCommit(['patch(router): Fix params']);
 		utils.gitCommit('types: Removed any');
-		utils.gitCommit('perf: Speeeeed');
+		utils.gitCommit('perf!: Speeeeed');
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
@@ -162,6 +162,17 @@ describe('conventional-changelog-beemo', () => {
 	it('uses h3 for patch versions', () => {
 		utils.gitCommit('docs: add a manual');
 		utils.gitCommit('patch: just a patch');
+
+		return captureStreamOutput(
+			conventionalChangelogCore({
+				...commonConfig,
+				cwd: utils.cwd,
+			}),
+		);
+	});
+
+	it('supports exclamation as a breaking modifier', () => {
+		utils.gitCommit('docs!: add a manual');
 
 		return captureStreamOutput(
 			conventionalChangelogCore({
@@ -305,6 +316,25 @@ describe('conventional-changelog-beemo', () => {
 				);
 			});
 		});
+
+		// it(`bumps major version if a commit uses exclamation`, () => {
+		// 	utils.gitCommit(`new!: new stuff`);
+		// 	utils.gitCommit(`fix(todo): with scope`);
+
+		// 	return conventionalRecommendedBump(
+		// 		{
+		// 			...commonConfig,
+		// 		},
+		// 		(error: Error | null, result: object) => {
+		// 			expect(error).toBeNull();
+		// 			expect(result).toEqual({
+		// 				level: 0,
+		// 				reason: 'There are 2 breaking changes and 0 new features',
+		// 				releaseType: 'major',
+		// 			});
+		// 		},
+		// 	);
+		// });
 
 		['new', 'update', 'feature'].forEach((minor) => {
 			it(`bumps minor version for ${minor}`, () => {
