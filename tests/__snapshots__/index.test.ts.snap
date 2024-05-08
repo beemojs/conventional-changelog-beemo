@@ -108,11 +108,11 @@ They are easier now!
 
 #### ⚡️ Performance
 
-- Speeeeed ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- _BREAKING:_ Speeeeed ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 
 #### 🎨 Styles
 
-- **[button]** polished rounded corners ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
+- _BREAKING:_ **[button]** polished rounded corners ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 
 #### ⚙️ Types
 
@@ -131,7 +131,7 @@ They are easier now!
 - **[deps]** updated dev tools ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 - setup testing framework ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
 - **[travis]** fixed yaml config ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))
-- **[ts]** updated types ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+- _BREAKING:_ **[ts]** updated types ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
 `;
 
 exports[`conventional-changelog-beemo > supports exclamation as a breaking modifier 1`] = `
@@ -139,7 +139,7 @@ exports[`conventional-changelog-beemo > supports exclamation as a breaking modif
 
 #### 📘 Docs
 
-- add a manual ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
+- _BREAKING:_ add a manual ([a1b2c3d](https://github.com/beemojs/conventional-changelog-beemo/commit/a1b2c3d))"
 `;
 
 exports[`conventional-changelog-beemo > supports non public GitHub repository locations 1`] = `
