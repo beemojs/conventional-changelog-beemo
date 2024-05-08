@@ -19,8 +19,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: yarn install --immutable
       - run: yarn run type
-      - run: yarn run test
       - run: yarn run lint
+      # Required for our Git related tests
+      - run: git config --global user.name 'CI'
+      - run: git config --global user.email 'dummy@example.org'
+      - run: yarn run test
   build:
     name: Pack
     runs-on: ubuntu-latest
