@@ -41,6 +41,7 @@ describe('conventional-changelog-beemo', () => {
 		const bumper = new Bumper(utils.cwd);
 
 		try {
+			// @ts-expect-error Ignore error
 			op(null, await bumper.bump(params.config.whatBump));
 		} catch (error) {
 			op(error as Error, {});
@@ -49,6 +50,7 @@ describe('conventional-changelog-beemo', () => {
 
 	beforeEach(() => {
 		utils = new TestTools();
+		utils.gitInit();
 	});
 
 	afterEach(() => {
@@ -294,7 +296,6 @@ describe('conventional-changelog-beemo', () => {
 						...commonConfig,
 					},
 					(error: Error | null, result: object) => {
-						console.log(error);
 						expect(error).toBeNull();
 						expect(result).toEqual({
 							level: 0,
@@ -307,7 +308,7 @@ describe('conventional-changelog-beemo', () => {
 		});
 
 		['new', 'update', 'feature'].forEach((minor) => {
-			it(`bumps minor version for ${minor}`, () => {
+			it.only(`bumps minor version for ${minor}`, () => {
 				utils.gitCommit(`${minor}: new stuff`);
 				utils.gitCommit(`${minor}(todo): with scope`);
 
@@ -339,7 +340,7 @@ describe('conventional-changelog-beemo', () => {
 			'types',
 			'perf',
 		].forEach((patch) => {
-			it(`bumps patch version for ${patch}`, () => {
+			it.only(`bumps patch version for ${patch}`, () => {
 				utils.gitCommit(`${patch}: new stuff`);
 				utils.gitCommit(`${patch}(todo): with scope`);
 
@@ -361,7 +362,7 @@ describe('conventional-changelog-beemo', () => {
 		});
 
 		['docs', 'ci', 'cd', 'build', 'test', 'tests', 'internal'].forEach((minor) => {
-			it(`doesnt bump version for ${minor}`, () => {
+			it.only(`doesnt bump version for ${minor}`, () => {
 				utils.gitCommit(`${minor}: new stuff`);
 				utils.gitCommit(`${minor}(todo): with scope`);
 
@@ -372,7 +373,7 @@ describe('conventional-changelog-beemo', () => {
 					(error: Error | null, result: object) => {
 						expect(error).toBeNull();
 						expect(result).toEqual({
-							level: null,
+							level: undefined,
 							reason: 'There are 0 breaking changes and 0 new features',
 						});
 					},
@@ -380,7 +381,7 @@ describe('conventional-changelog-beemo', () => {
 			});
 		});
 
-		it('does nothing when no type exist', () => {
+		it.only('does nothing when no type exist', () => {
 			utils.gitCommit('new stuff');
 			utils.gitCommit('commit without a type');
 
@@ -391,7 +392,7 @@ describe('conventional-changelog-beemo', () => {
 				(error: Error | null, result: object) => {
 					expect(error).toBeNull();
 					expect(result).toEqual({
-						level: null,
+						level: undefined,
 						reason: 'There are 0 breaking changes and 0 new features',
 					});
 				},

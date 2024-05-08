@@ -30,14 +30,14 @@ export async function whatBump(commits: Commit[]): Promise<BumperRecommendation>
 			}
 			case 'minor': {
 				features += 1;
-				if (level === null || level === 2) {
+				if (level === undefined || level === 2) {
 					level = 1;
 				}
 
 				break;
 			}
 			case 'patch': {
-				if (level === null) {
+				if (level === undefined) {
 					level = 2;
 				}
 

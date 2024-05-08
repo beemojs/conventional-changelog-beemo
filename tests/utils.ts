@@ -5,10 +5,11 @@ import { randomUUID } from 'crypto';
 import { pathToFileURL } from 'url';
 import path from 'path';
 import fs from 'fs';
+import os from 'os';
 
-export function createTmpDirectory(rootDir: string) {
+export function createTmpDirectory() {
 	const id = randomUUID();
-	const dirname = path.join(rootDir, id);
+	const dirname = path.join(os.tmpdir(), 'cc-beemo', id);
 
 	fs.mkdirSync(dirname, {
 		recursive: true,
@@ -51,8 +52,6 @@ function formatMessageArgs(msg: string | string[]) {
 	return args;
 }
 
-const tmpDir = path.join(__dirname, 'tmp');
-
 export class TestTools {
 	cwd: string;
 	private readonly shouldCleanup: boolean;
@@ -62,7 +61,7 @@ export class TestTools {
 			this.cwd = cwd;
 			this.shouldCleanup = false;
 		} else {
-			this.cwd = createTmpDirectory(tmpDir);
+			this.cwd = createTmpDirectory();
 			this.shouldCleanup = true;
 		}
 	}
@@ -76,12 +75,6 @@ export class TestTools {
 			this.rmSync(this.cwd, {
 				recursive: true,
 			});
-
-			const otherDirs = fs.readdirSync(tmpDir);
-
-			if (!otherDirs.length) {
-				fs.rmdirSync(tmpDir);
-			}
 		} catch (err) {
 			// ignore
 		}
