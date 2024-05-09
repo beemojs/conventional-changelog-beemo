@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "build": "packemon build --addEngines",
-    "pack": "packemon pack --addEngines --declaration",
+    "pack": "packemon pack --addEngines --addExports --declaration",
     "check": "yarn run type && yarn run test",
     "test": "vitest --run",
     "format": "prettier --write .",
@@ -49,8 +49,24 @@
     "url": "https://ko-fi.com/milesjohnson"
   },
   "packemon": {
+    "api": "private",
     "format": "lib",
-    "platform": "node"
+    "platform": "node",
+    "inputs": {
+      "index": "src/index.ts",
+      "core": "src/core.ts"
+    }
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    "./core": {
+      "types": "./lib/core.d.ts",
+      "default": "./lib/core.js"
+    },
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    }
   },
   "packageManager": "yarn@3.2.0"
 }
