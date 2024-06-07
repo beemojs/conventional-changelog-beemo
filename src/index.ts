@@ -7,7 +7,7 @@ import { parserOpts } from './parserOpts';
 import { writerOpts } from './writerOpts';
 import { whatBump } from './whatBump';
 
-export * from './types';
+export type * from './types';
 
 export default function createPreset() {
 	return {
@@ -16,3 +16,9 @@ export default function createPreset() {
 		whatBump,
 	};
 }
+
+// Compat with conventional-changelog-core < v8
+
+export { parserOpts, writerOpts };
+export const recommendedBumpOpts = { parserOpts, whatBump };
+export const conventionalChangelog = { parserOpts, writerOpts };
